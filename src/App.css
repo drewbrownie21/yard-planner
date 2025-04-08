@@ -1,0 +1,15 @@
+.tile {
+  background-color: rgb(10, 169, 36);
+  border-style: solid;
+  border-color: green;
+  height: 200px;
+  width: 30%;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.tileHeader {
+  color: rgb(32, 32, 32);
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
