@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Tile from "../components/Tile";
+import { Button } from "../components/Button";
 
 export function Haridness() {
-  const [zipcode, setZipcode] = useState('');
-  const [displayZipCode, setDisplayZipCode] = useState('')
+  const [zipcode, setZipcode] = useState("");
+  const [displayZipCode, setDisplayZipCode] = useState("");
 
   //   Use this to prevent the page from loading and reset the search value
   const handleClick = (e: any) => {
@@ -21,10 +22,8 @@ export function Haridness() {
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
           />
-          <button>Submit</button>
-          <span>
-            {displayZipCode}
-          </span>
+          <Button buttonDisplayText={"Submit"} />
+          <span>{displayZipCode}</span>
         </form>
       </Tile>
     </section>

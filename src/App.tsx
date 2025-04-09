@@ -1,9 +1,10 @@
+import { Header } from "./Header";
 import { Haridness } from "./hardiness/Hardiness";
 
 function App() {
   return (
     <main>
-      <h1>Yard Planner!</h1>
+      <Header />
       <Haridness />
     </main>
   );
