@@ -1,10 +1,10 @@
-import Tile from "./components/Tile";
+import { Haridness } from "./hardiness/Hardiness";
 
 function App() {
   return (
     <main>
       <h1>Yard Planner!</h1>
-      <Tile title="Hardiness Calculator" />
+      <Haridness />
     </main>
   );
 }
