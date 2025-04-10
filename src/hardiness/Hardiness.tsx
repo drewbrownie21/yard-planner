@@ -21,8 +21,9 @@ export function Haridness() {
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
+            required={true}
           />
-          <Button buttonDisplayText={"Submit"} />
+          <Button buttonDisplayText={"Submit"} /><br />
           <span>{displayZipCode}</span>
         </form>
       </Tile>

@@ -1,13 +1,13 @@
-import "../App.css";
+import "./Tile.css"
 
 interface TileProps {
   title: string;
   // Drew's notes. React.ReactNode is better than any because it is type safe,
-  // ReactNode is anything React can render whereas any is literally anything
+  // "ReactNode" is anything React can render whereas "any" is literally anything
   children?: React.ReactNode;
 }
 
-// Child here allows the user to pass in a variety of different elements into tile, maybe bad practice?
+// Children here allows the user to pass in a variety of different elements into tile, maybe bad practice?
 // Feels like it will give a lot of unstructered power
 function Tile({ title, children }: TileProps) {
   return (
