@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tile from "../components/Tile";
 import { Button } from "../components/Button";
+import "./Hardiness.css"
 
 export function Haridness() {
   const [zipcode, setZipcode] = useState("");
@@ -16,15 +17,17 @@ export function Haridness() {
   return (
     <section>
       <Tile title="Hardiness Calculator">
-        <form onSubmit={handleClick}>
+        <form onSubmit={handleClick}
+        className="flex-container">
           <input
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
             required={true}
           />
-          <Button buttonDisplayText={"Submit"} /><br />
-          <span>{displayZipCode}</span>
+          <Button buttonDisplayText={"Submit"} />
+          <b>Zipcode: {displayZipCode}</b>
+          <b>Zone: </b>
         </form>
       </Tile>
     </section>
