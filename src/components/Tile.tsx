@@ -1,4 +1,4 @@
-import "./Tile.css"
+import "./Tile.css";
 
 interface TileProps {
   title: string;
