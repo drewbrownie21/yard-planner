@@ -15,7 +15,7 @@ export function Haridness() {
   };
 
   return (
-    <section>
+    <section className="hardiness-section">
       <Tile title="Hardiness Calculator">
         <form onSubmit={handleClick} className="flex-container">
           <input
