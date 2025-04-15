@@ -19,6 +19,7 @@ export function Haridness() {
       <Tile title="Hardiness Calculator">
         <form onSubmit={handleClick} className="flex-container">
           <input
+            className="input"
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}

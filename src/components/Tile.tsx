@@ -7,8 +7,6 @@ interface TileProps {
   children?: React.ReactNode;
 }
 
-// Children here allows the user to pass in a variety of different elements into tile, maybe bad practice?
-// Feels like it will give a lot of unstructered power
 function Tile({ title, children }: TileProps) {
   return (
     <section className="tile">
