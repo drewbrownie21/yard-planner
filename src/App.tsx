@@ -1,4 +1,4 @@
-import { Header } from "./Header";
+import { Header } from "./components/Header/Header";
 import { Haridness } from "./hardiness/Hardiness";
 import "./App.css";
 

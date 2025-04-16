@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Tile from "../components/Tile";
-import { Button } from "../components/Button";
+import Tile from "../components/Tile/Tile";
+import { Button } from "../components/Button/Button";
 import "./Hardiness.css";
+import "../components/Button/Button.css";
 
 export function Haridness() {
   const [zipcode, setZipcode] = useState("");
