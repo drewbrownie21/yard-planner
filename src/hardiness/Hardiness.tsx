@@ -9,24 +9,32 @@ export function Haridness() {
   const [displayZipCode, setDisplayZipCode] = useState("");
 
   //   Use this to prevent the page from loading and reset the search value
-  const handleClick = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setZipcode("");
     setDisplayZipCode(zipcode);
   };
 
+  const handleReset = (e: any) => {
+    e.preventDefault();
+    setDisplayZipCode("")
+    setZipcode("")
+  }
+
   return (
     <section className="hardiness-section">
       <Tile title="Hardiness Calculator">
-        <form onSubmit={handleClick} className="flex-container">
+        <form onSubmit={handleSubmit} className="flex-container">
           <input
             className="input"
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
-            required={true}
           />
+          <div className="button-flex-container">
           <Button buttonDisplayText={"Submit"} />
+          <Button buttonDisplayText={"Reset"} onClick={() => handleReset}/>
+          </div>
           <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
           <b>Zone: {displayZipCode.length > 0 ? "7B" : "N/A"}</b>
         </form>
