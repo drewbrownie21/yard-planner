@@ -1,6 +1,7 @@
 interface ButtonProps {
   buttonDisplayText: string;
-  onClick?: () => void;
+  // Drew's notes -> while e is not passed in here, it is internally inferred by react when we click the button
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function Button({ buttonDisplayText, onClick }: ButtonProps) {
