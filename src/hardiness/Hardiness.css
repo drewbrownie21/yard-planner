@@ -11,3 +11,9 @@
   display: flex;
   flex-direction: row;
 }
+
+.hardiness-results{
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}

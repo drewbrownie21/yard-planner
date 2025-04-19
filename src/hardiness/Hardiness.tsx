@@ -38,8 +38,10 @@ export function Haridness() {
           <Button buttonDisplayText={"Submit"} onClick={handleSubmit}/>
           <Button buttonDisplayText={"Reset"} onClick={handleReset}/>
           </div>
-          <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
-          <b>Zone: {displayZipCode.length > 0 ? zone : "N/A"}</b>
+          <section className="hardiness-results">
+            <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
+            <b>Zone: {displayZipCode.length > 0 ? zone : "N/A"}</b>
+          </section>
         </form>
       </Tile>
     </section>
