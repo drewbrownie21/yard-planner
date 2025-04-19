@@ -1,4 +1,4 @@
-import "./Tile.css";
+import styles from "./Tile.module.css";
 
 interface TileProps {
   title: string;
@@ -9,8 +9,8 @@ interface TileProps {
 
 function Tile({ title, children }: TileProps) {
   return (
-    <section className="tile">
-      <header className="tileHeader">{title}</header>
+    <section className={styles.tile}>
+      <header className={styles.tileHeader}>{title}</header>
       <div>{children}</div>
     </section>
   );

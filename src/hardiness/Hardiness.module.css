@@ -1,4 +1,4 @@
-.flex-container {
+.flexContainer {
   display: flex;
   flex-direction: column;
 }
@@ -7,12 +7,12 @@
   width: 30%;
 }
 
-.button-flex-container{
+.buttonFlexContainer{
   display: flex;
   flex-direction: row;
 }
 
-.hardiness-results{
+.hardinessResults{
   padding-top: 10px;
   display: flex;
   flex-direction: column;

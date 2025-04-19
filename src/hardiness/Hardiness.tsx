@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
-import "./Hardiness.css";
-import "../components/Button/Button.css";
+import styles from "./Hardiness.module.css";
 import  grabZone  from "../../zipcode";
 
 export function Haridness() {
@@ -24,21 +23,21 @@ export function Haridness() {
   }
 
   return (
-    <section className="hardiness-section">
+    <section>
       <Tile title="Hardiness Calculator">
-        <form className="flex-container">
+        <form className={styles.flexContainer}>
           <input
-            className="input"
+            className={styles.input}
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
             maxLength={5}
           />
-          <div className="button-flex-container">
+          <div className={styles.buttonFlexContainer}>
           <Button buttonDisplayText={"Submit"} onClick={handleSubmit}/>
           <Button buttonDisplayText={"Reset"} onClick={handleReset}/>
           </div>
-          <section className="hardiness-results">
+          <section className={styles.hardinessResults}>
             <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
             <b>Zone: {displayZipCode.length > 0 ? zone : "N/A"}</b>
           </section>
