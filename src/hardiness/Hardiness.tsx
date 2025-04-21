@@ -2,12 +2,16 @@ import { useState } from "react";
 import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
 import styles from "./Hardiness.module.css";
-import  grabZone  from "../../zipcode";
+import grabZone from "../../zipcode";
 
-export function Haridness() {
+type HardinessType = {
+  setZone: (value: string) => void;
+  zone: string;
+};
+
+export function Haridness({ setZone, zone }: HardinessType) {
   const [zipcode, setZipcode] = useState("");
   const [displayZipCode, setDisplayZipCode] = useState("");
-  const [zone, setZone] = useState("")
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -18,9 +22,9 @@ export function Haridness() {
 
   const handleReset = (e: any) => {
     e.preventDefault();
-    setDisplayZipCode("")
-    setZipcode("")
-  }
+    setDisplayZipCode("");
+    setZipcode("");
+  };
 
   return (
     <section>
@@ -34,8 +38,8 @@ export function Haridness() {
             maxLength={5}
           />
           <div className={styles.buttonFlexContainer}>
-          <Button buttonDisplayText={"Submit"} onClick={handleSubmit}/>
-          <Button buttonDisplayText={"Reset"} onClick={handleReset}/>
+            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} />
+            <Button buttonDisplayText={"Reset"} onClick={handleReset} />
           </div>
           <section className={styles.hardinessResults}>
             <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>

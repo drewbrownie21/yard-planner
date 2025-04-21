@@ -7,12 +7,12 @@
   width: 30%;
 }
 
-.buttonFlexContainer{
+.buttonFlexContainer {
   display: flex;
   flex-direction: row;
 }
 
-.hardinessResults{
+.hardinessResults {
   padding-top: 10px;
   display: flex;
   flex-direction: column;

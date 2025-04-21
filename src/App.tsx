@@ -1,12 +1,18 @@
+import { Grass } from "./Grass/Grass";
+import { Haridness } from "./Hardiness/Hardiness";
 import { Header } from "./components/Header/Header";
-import { Haridness } from "./hardiness/Hardiness";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [zone, setZone] = useState("");
+  console.log(zone);
+
   return (
     <main>
       <Header />
-      <Haridness />
+      <Haridness setZone={setZone} zone={zone} />
+      <Grass zone={zone} />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import button from "./Button.module.css"
+import button from "./Button.module.css";
 
 interface ButtonProps {
   buttonDisplayText: string;
@@ -7,5 +7,9 @@ interface ButtonProps {
 }
 
 export function Button({ buttonDisplayText, onClick }: ButtonProps) {
-  return <button className={button.basic} onClick={onClick}>{buttonDisplayText}</button>;
+  return (
+    <button className={button.basic} onClick={onClick}>
+      {buttonDisplayText}
+    </button>
+  );
 }

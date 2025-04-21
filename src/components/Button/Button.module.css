@@ -1,16 +1,16 @@
 .basic {
-    background-color: #c7e8dc; /* Green */
-    border: none;
-    color: rgb(2, 79, 26);
-    padding: 5px 10px;
-    text-align: center;
-    font-weight: bold;
-    font-size: x-large;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 25px;
-    width: 30%;
-    box-shadow:
+  background-color: #c7e8dc; /* Green */
+  border: none;
+  color: rgb(2, 79, 26);
+  padding: 5px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
+  width: 30%;
+  box-shadow:
     8px 5px 5px 0 rgba(0, 0, 0, 0.2),
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
-  }
+}
