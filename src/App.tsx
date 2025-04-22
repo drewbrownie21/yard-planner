@@ -6,7 +6,6 @@ import { useState } from "react";
 
 function App() {
   const [zone, setZone] = useState("");
-  console.log(zone);
 
   return (
     <main>

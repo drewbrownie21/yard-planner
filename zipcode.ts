@@ -1,4 +1,7 @@
-let zipCodesZoneMap: any = {
+type zone = string;
+type zipcode = string;
+
+let zipCodesZoneMap: Record<zone, zipcode[]> = {
   "3b": ["00001", "05000"],
   "4a": ["05001", "10000"],
   "5a": ["10001", "15000"],
