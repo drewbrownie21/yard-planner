@@ -5,7 +5,7 @@ export function Grass(zone: { zone: string }) {
   console.log(grassTypes(zone.zone));
   return (
     <section className="grass">
-      <Tile title={"Grass Recommendations"}></Tile>
+      <Tile title={"Grass Recommendations"}>{grassTypes(zone.zone)}</Tile>
     </section>
   );
 }
