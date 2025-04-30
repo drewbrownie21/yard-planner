@@ -58,5 +58,5 @@ export default function grabZone(zone: string) {
       return grassTypesMap[zone];
     }
   }
-  return "No zone found";
+  return [];
 }

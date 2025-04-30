@@ -1,0 +1,9 @@
+body {
+  background-color: rgb(205, 205, 205);
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
