@@ -8,13 +8,13 @@ function App() {
   const [zone, setZone] = useState("");
 
   return (
-    <main>
+    <>
       <Header />
-      <section className={styles.main}>
+      <main className={styles.main}>
         <Haridness setZone={setZone} zone={zone} />
         <Grass zone={zone} />
-      </section>
-    </main>
+      </main>
+    </>
   );
 }
 

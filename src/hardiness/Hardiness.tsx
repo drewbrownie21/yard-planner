@@ -36,6 +36,7 @@ export function Haridness({ setZone, zone }: HardinessType) {
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
             maxLength={5}
+            type="text"
           />
           <div className={styles.buttonFlexContainer}>
             <Button buttonDisplayText={"Submit"} onClick={handleSubmit} />

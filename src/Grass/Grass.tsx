@@ -5,7 +5,6 @@ export function Grass(zone: { zone: string }) {
   console.log(grassTypes(zone.zone));
   let grassTypesArray = grassTypes(zone.zone);
   return (
-    <section className="grass">
       <Tile title={"Grass Recommendations"}>
         {grassTypes(zone.zone).length === 0
           ? "Please Enter Zipcode"
@@ -13,6 +12,5 @@ export function Grass(zone: { zone: string }) {
               <ul key={index}>• {grassType}</ul>
             ))}
       </Tile>
-    </section>
   );
 }
