@@ -1,7 +1,4 @@
-type Zone = string;
-type GrassType = string;
-
-let grassTypesMap: Record<Zone, GrassType[]> = {
+const grassTypesMap: Record<string, string[]> = {
   "3b": ["Creeping Red Fescue", "Hard Fescue"],
   "4a": ["Creeping Red Fescue", "Chewings Fescue"],
   "4b": ["Creeping Red Fescue", "Chewings Fescue", "Hard Fescue"],
