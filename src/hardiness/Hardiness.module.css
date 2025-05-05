@@ -1,13 +1,13 @@
-.flexContainer {
+.hardinessForm {
   display: flex;
   flex-direction: column;
 }
 
-.input {
+.hardinessFormInput {
   width: 30%;
 }
 
-.buttonFlexContainer {
+.hardinessButtons {
   display: flex;
   flex-direction: row;
 }

@@ -24,22 +24,22 @@ export function Haridness({ setZone, zone }: HardinessType) {
     e.preventDefault();
     setDisplayZipCode("");
     setZipcode("");
-    setZone("")
+    setZone("");
   };
 
   return (
     <section>
       <Tile title="Hardiness Calculator">
-        <form className={styles.flexContainer}>
+        <form className={styles.hardinessForm}>
           <input
-            className={styles.input}
+            className={styles.hardinessFormInput}
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
             maxLength={5}
             type="text"
           />
-          <div className={styles.buttonFlexContainer}>
+          <div className={styles.hardinessButtons}>
             <Button buttonDisplayText={"Submit"} onClick={handleSubmit} />
             <Button buttonDisplayText={"Reset"} onClick={handleReset} />
           </div>
