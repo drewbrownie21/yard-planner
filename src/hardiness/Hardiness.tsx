@@ -24,6 +24,7 @@ export function Haridness({ setZone, zone }: HardinessType) {
     e.preventDefault();
     setDisplayZipCode("");
     setZipcode("");
+    setZone("")
   };
 
   return (

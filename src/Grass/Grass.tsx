@@ -2,7 +2,6 @@ import Tile from "../components/Tile/Tile";
 import grassTypes from "../../grassTypes";
 
 export function Grass(zone: { zone: string }) {
-  console.log(grassTypes(zone.zone));
   let grassTypesArray = grassTypes(zone.zone);
   return (
       <Tile title={"Grass Recommendations"}>
