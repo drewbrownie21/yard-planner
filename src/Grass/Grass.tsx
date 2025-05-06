@@ -2,22 +2,36 @@ import Tile from "../components/Tile/Tile";
 import grassTypes from "../../grassTypes";
 import { useState } from "react";
 
-export function Grass(zone: { zone: string }) {
-  let grassTypesArray = grassTypes(zone.zone);
-  const [grassTypeSelected, setGrassTypeSelected] = useState("");
+type grassType = {
+  zone: string;
+  setGrassTypeSelected: (value: string) => void;
+  grassTypeSelected: string;
+};
+
+export function Grass({
+  zone,
+  setGrassTypeSelected,
+  grassTypeSelected,
+}: grassType) {
+  let grassTypesArray = grassTypes(zone);
+
   return (
     <Tile title={"Grass Recommendations"}>
-      {grassTypes(zone.zone).length === 0
+      {grassTypes(zone).length === 0
         ? "Please Enter Zipcode"
         : grassTypesArray.map((grassType, index) => (
             <label key={index}>
               <ul>
-                <input type="radio" name="grassTypeSelection" value={index} onChange={() => setGrassTypeSelected(grassType)}/>
+                <input
+                  type="radio"
+                  name="grassTypeSelection"
+                  value={index}
+                  onChange={() => setGrassTypeSelected(grassType)}
+                />
                 {grassType}
               </ul>
             </label>
           ))}
-          {grassTypeSelected}
     </Tile>
   );
 }
