@@ -9,8 +9,8 @@ interface TileProps {
 
 function Tile({ title, children }: TileProps) {
   return (
-    <section className={styles.tile}>
-      <header className={styles.tileHeader}>{title}</header>
+    <section className={styles.body}>
+      <header className={styles.header}>{title}</header>
       <div>{children}</div>
     </section>
   );

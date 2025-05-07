@@ -8,7 +8,7 @@ interface ButtonProps {
 
 export function Button({ buttonDisplayText, onClick }: ButtonProps) {
   return (
-    <button className={button.basic} onClick={onClick}>
+    <button className={button.button} onClick={onClick}>
       {buttonDisplayText}
     </button>
   );
