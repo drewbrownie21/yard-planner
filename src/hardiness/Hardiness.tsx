@@ -5,11 +5,11 @@ import styles from "./Hardiness.module.css";
 import grabZone from "../../zipcode";
 
 type HardinessType = {
-  setZone: (value: string) => void;
+  updateZone: (value: string) => void;
   zone: string;
 };
 
-export function Haridness({ setZone, zone }: HardinessType) {
+export function Haridness({ updateZone, zone }: HardinessType) {
   const [zipcode, setZipcode] = useState("");
   const [displayZipCode, setDisplayZipCode] = useState("");
 
@@ -17,29 +17,29 @@ export function Haridness({ setZone, zone }: HardinessType) {
     e.preventDefault();
     setZipcode("");
     setDisplayZipCode(zipcode);
-    setZone(grabZone(zipcode));
+    updateZone(grabZone(zipcode));
   };
 
   const handleReset = (e: any) => {
     e.preventDefault();
     setDisplayZipCode("");
     setZipcode("");
-    setZone("");
+    updateZone("");
   };
 
   return (
     <section>
       <Tile title="Hardiness Calculator">
-        <form className={styles.hardinessForm}>
+        <form className={styles.form}>
           <input
-            className={styles.hardinessFormInput}
+            className={styles.input}
             placeholder="Enter zip code"
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
             maxLength={5}
             type="text"
           />
-          <div className={styles.hardinessButtons}>
+          <div className={styles.button}>
             <Button buttonDisplayText={"Submit"} onClick={handleSubmit} />
             <Button buttonDisplayText={"Reset"} onClick={handleReset} />
           </div>

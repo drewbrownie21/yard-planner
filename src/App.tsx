@@ -13,13 +13,13 @@ function App() {
     <>
       <Header />
       <main className={styles.main}>
-        <Haridness setZone={setZone} zone={zone} />
+        <Haridness updateZone={setZone} zone={zone} />
         <Grass
           zone={zone}
           setGrassTypeSelected={setGrassTypeSelected}
           grassTypeSelected={grassTypeSelected}
         />
-        <Care grassType={grassTypeSelected} />
+        <Care grassType={zone.length > 0 ? grassTypeSelected : ""} />
       </main>
     </>
   );

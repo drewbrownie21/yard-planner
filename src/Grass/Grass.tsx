@@ -1,6 +1,5 @@
 import Tile from "../components/Tile/Tile";
 import grassTypes from "../../grassTypes";
-import { useState } from "react";
 
 type grassType = {
   zone: string;
@@ -11,7 +10,6 @@ type grassType = {
 export function Grass({
   zone,
   setGrassTypeSelected,
-  grassTypeSelected,
 }: grassType) {
   let grassTypesArray = grassTypes(zone);
 
