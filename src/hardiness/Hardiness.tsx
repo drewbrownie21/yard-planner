@@ -4,12 +4,18 @@ import { Button } from "../components/Button/Button";
 import styles from "./Hardiness.module.css";
 import grabZone from "../../zipcode";
 
-type HardinessType = {
-  updateZone: (value: string) => void;
+type FormData = {
   zone: string;
+  grassType: string;
+  zipcode: string;
 };
 
-export function Haridness({ updateZone, zone }: HardinessType) {
+type HardinessType = {
+  updateUserProfile: (field: keyof FormData, value: string) => void;
+  userProfile: { zone: string, grassType: string, zipcode: string};
+};
+
+export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
   const [zipcode, setZipcode] = useState("");
   const [displayZipCode, setDisplayZipCode] = useState("");
 
@@ -17,14 +23,16 @@ export function Haridness({ updateZone, zone }: HardinessType) {
     e.preventDefault();
     setZipcode("");
     setDisplayZipCode(zipcode);
-    updateZone(grabZone(zipcode));
+    updateUserProfile("zipcode", displayZipCode);
+    updateUserProfile("zone", grabZone(zipcode));
+    console.log(userProfile.zipcode)
   };
 
   const handleReset = (e: any) => {
     e.preventDefault();
     setDisplayZipCode("");
-    setZipcode("");
-    updateZone("");
+    updateUserProfile("zipcode", "")
+    updateUserProfile("zone", "")
   };
 
   return (
@@ -45,7 +53,7 @@ export function Haridness({ updateZone, zone }: HardinessType) {
           </div>
           <section className={styles.hardinessResults}>
             <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
-            <b>Zone: {displayZipCode.length > 0 ? zone : "N/A"}</b>
+            <b>Zone: {displayZipCode.length > 0 ? userProfile.zone : "N/A"}</b>
           </section>
         </form>
       </Tile>
