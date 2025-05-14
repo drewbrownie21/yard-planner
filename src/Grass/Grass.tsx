@@ -1,21 +1,18 @@
 import Tile from "../components/Tile/Tile";
 import grassTypes from "../../grassTypes";
+import { FormData } from "../App";
 
-type grassType = {
-  zone: string;
-  setGrassTypeSelected: (value: string) => void;
-  grassTypeSelected: string;
+type GrassType = {
+  updateUserProfile: (field: keyof FormData, value: string) => void;
+  userProfile: { zone: string, grassType: string, zipcode: string};
 };
 
-export function Grass({
-  zone,
-  setGrassTypeSelected,
-}: grassType) {
-  let grassTypesArray = grassTypes(zone);
+export function Grass({ updateUserProfile, userProfile }: GrassType) {
+  let grassTypesArray = grassTypes(userProfile.zone);
 
   return (
     <Tile title={"Grass Recommendations"}>
-      {grassTypes(zone).length === 0
+      {grassTypes(userProfile.zone).length === 0
         ? "Please Enter Zipcode"
         : grassTypesArray.map((grassType, index) => (
             <label key={index}>
@@ -24,7 +21,7 @@ export function Grass({
                   type="radio"
                   name="grassTypeSelection"
                   value={index}
-                  onChange={() => setGrassTypeSelected(grassType)}
+                  onChange={() => updateUserProfile("grassType", userProfile.grassType)}
                 />
                 {grassType}
               </ul>

@@ -5,6 +5,12 @@ import { Header } from "./components/Header/Header";
 import styles from "./App.module.css";
 import { useState } from "react";
 
+export type FormData = {
+  zone: string;
+  grassType: string;
+  zipcode: string;
+};
+
 function App() {
 
   const [userProfile, setUserProfile] = useState({
@@ -26,13 +32,9 @@ function App() {
     <>
       <Header />
       <main className={styles.main}>
-        <Haridness updateUserProfile={updateUserProfile} userProfile={userProfile}/>
-        {/* <Grass
-          zone={zone}
-          setGrassTypeSelected={setGrassTypeSelected}
-          grassTypeSelected={grassTypeSelected}
-        />
-        <Care grassType={zone.length > 0 ? grassTypeSelected : ""} /> */}
+        <Care userProfile={userProfile.zone.length > 0 ? userProfile.grassType : ""} /> */
+        <Haridness updateUserProfile={updateUserProfile} userProfile={userProfile} />
+        <Grass updateUserProfile={updateUserProfile} userProfile={userProfile} />
       </main>
     </>
   );

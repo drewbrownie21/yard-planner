@@ -3,12 +3,7 @@ import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
 import styles from "./Hardiness.module.css";
 import grabZone from "../../zipcode";
-
-type FormData = {
-  zone: string;
-  grassType: string;
-  zipcode: string;
-};
+import { FormData } from "../App";
 
 type HardinessType = {
   updateUserProfile: (field: keyof FormData, value: string) => void;
