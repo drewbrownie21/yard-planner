@@ -21,7 +21,7 @@ export function Grass({ updateUserProfile, userProfile }: GrassType) {
                   type="radio"
                   name="grassTypeSelection"
                   value={index}
-                  onChange={() => updateUserProfile("grassType", userProfile.grassType)}
+                  onChange={() => updateUserProfile("grassType", grassType)}
                 />
                 {grassType}
               </ul>

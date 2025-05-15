@@ -20,7 +20,6 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
     setDisplayZipCode(zipcode);
     updateUserProfile("zipcode", displayZipCode);
     updateUserProfile("zone", grabZone(zipcode));
-    console.log(userProfile.zipcode)
   };
 
   const handleReset = (e: any) => {

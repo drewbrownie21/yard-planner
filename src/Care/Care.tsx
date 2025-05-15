@@ -1,13 +1,9 @@
 import Tile from "../components/Tile/Tile";
 
-type CareType = {
-  userProfile: { zone: string, grassType: string, zipcode: string};
-};
-
-export function Care({ userProfile }: CareType) {
+export function Care({ grassType }: {grassType: string}) {
   return (
     <Tile title="Grass Care">
-      {userProfile.grassType.length > 0 ? userProfile.grassType : "Select a grass type!"}
+      {grassType.length > 0 ? grassType : "Select a grass type!"}
     </Tile>
   );
 }

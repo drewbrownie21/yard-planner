@@ -27,14 +27,13 @@ function App() {
     }));
   };
 
-
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <Care userProfile={userProfile.zone.length > 0 ? userProfile.grassType : ""} /> */
         <Haridness updateUserProfile={updateUserProfile} userProfile={userProfile} />
         <Grass updateUserProfile={updateUserProfile} userProfile={userProfile} />
+        <Care grassType={userProfile.zone.length > 0 ? userProfile.grassType : ""} />
       </main>
     </>
   );
