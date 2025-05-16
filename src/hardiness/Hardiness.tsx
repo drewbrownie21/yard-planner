@@ -2,12 +2,12 @@ import { useState } from "react";
 import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
 import styles from "./Hardiness.module.css";
-import grabZone from "../../zipcode";
+import grabZone from "../../data/zipcode";
 import { FormData } from "../App";
 
 type HardinessType = {
   updateUserProfile: (field: keyof FormData, value: string) => void;
-  userProfile: { zone: string, grassType: string, zipcode: string};
+  userProfile: { zone: string; grassType: string; zipcode: string };
 };
 
 export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
@@ -25,8 +25,8 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
   const handleReset = (e: any) => {
     e.preventDefault();
     setDisplayZipCode("");
-    updateUserProfile("zipcode", "")
-    updateUserProfile("zone", "")
+    updateUserProfile("zipcode", "");
+    updateUserProfile("zone", "");
   };
 
   return (

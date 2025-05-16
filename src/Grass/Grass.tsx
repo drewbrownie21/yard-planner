@@ -1,10 +1,10 @@
 import Tile from "../components/Tile/Tile";
-import grassTypes from "../../grassTypes";
+import grassTypes from "../../data/grassTypes";
 import { FormData } from "../App";
 
 type GrassType = {
   updateUserProfile: (field: keyof FormData, value: string) => void;
-  userProfile: { zone: string, grassType: string, zipcode: string};
+  userProfile: { zone: string; grassType: string; zipcode: string };
 };
 
 export function Grass({ updateUserProfile, userProfile }: GrassType) {
