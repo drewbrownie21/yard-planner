@@ -217,11 +217,11 @@ const produceMap: Record<string, string[]> = {
   ],
 };
 
-export function findProduce(zone: string) {
+export default function findProduce(zone: string) {
   for (const produceZone in produceMap) {
     if (produceZone == zone) {
       return produceMap[produceZone];
     }
   }
-  return `Zone: ${zone} has no produce listed.`;
+  return [];
 }

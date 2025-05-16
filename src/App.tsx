@@ -45,7 +45,7 @@ function App() {
         <Care
           grassType={userProfile.zone.length > 0 ? userProfile.grassType : ""}
         />
-        <Produce />
+        <Produce zone={userProfile.zone} />
       </main>
     </>
   );
