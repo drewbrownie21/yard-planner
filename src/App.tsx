@@ -5,6 +5,7 @@ import { Header } from "./components/Header/Header";
 import styles from "./App.module.css";
 import { useState } from "react";
 import { Produce } from "./Produce/Produce";
+import { Seeds } from "./Seeds/Seeds";
 
 export type FormData = {
   zone: string;
@@ -46,6 +47,7 @@ function App() {
           grassType={userProfile.zone.length > 0 ? userProfile.grassType : ""}
         />
         <Produce zone={userProfile.zone} />
+        <Seeds />
       </main>
     </>
   );

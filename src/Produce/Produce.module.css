@@ -1,5 +1,5 @@
-.column{
-    column-width: 100px;
-    column-gap: 15x;
-    max-height: 200px;
+.column {
+  column-width: 100px;
+  column-gap: 15x;
+  max-height: 200px;
 }

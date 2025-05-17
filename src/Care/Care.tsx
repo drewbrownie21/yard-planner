@@ -1,6 +1,6 @@
 import Tile from "../components/Tile/Tile";
 import { mapGrassSunLevels } from "../../data/grassSunLevels";
-import styles from "./Care.module.css"
+import styles from "./Care.module.css";
 
 export function Care({ grassType }: { grassType: string }) {
   const month = new Date().getMonth();
