@@ -6,8 +6,7 @@ export function Produce({ zone }: { zone: string }) {
   let produceObject = findProduce(zone);
 
   return (
-    <Tile title="Produce">
-        <div className={styles.column}>
+    <Tile title="Produce" childrenClassName={styles.column}>
         {produceObject.length > 0
         ? produceObject.map((produce: string, index: number) => (
             <label key={index}>
@@ -15,7 +14,6 @@ export function Produce({ zone }: { zone: string }) {
             </label>
           ))
         : ""}
-        </div>
     </Tile>
   );
 }

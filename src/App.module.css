@@ -4,6 +4,7 @@ body {
 
 .main {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   gap: 40px;
+  
 }

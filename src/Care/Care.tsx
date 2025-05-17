@@ -1,5 +1,6 @@
 import Tile from "../components/Tile/Tile";
 import { mapGrassSunLevels } from "../../data/grassSunLevels";
+import styles from "./Care.module.css"
 
 export function Care({ grassType }: { grassType: string }) {
   const month = new Date().getMonth();
@@ -20,8 +21,8 @@ export function Care({ grassType }: { grassType: string }) {
   };
 
   return (
-    <Tile title="Grass Care">
-      <p>{grassType.length > 0 ? grassType : "Select a grass type!"}</p>
+    <Tile title="Grass Care" childrenClassName={styles.list}>
+      <p>{grassType.length > 0 ? grassType : ""}</p>
       <p>{grassType.length > 0 ? mapGrassSunLevels(grassType) : ""}</p>
       <p>{grassType.length > 0 ? lawnCare[month] : ""}</p>
     </Tile>
