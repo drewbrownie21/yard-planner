@@ -7,15 +7,17 @@ export function Produce({ zone }: { zone: string }) {
 
   return (
     <Tile title="Produce">
-      <p>{zone.length > 0 ? "The following produce grows well in " + zone : ""}.</p>
+      <p>
+        {zone.length > 0 ? "The following produce grows well in " + zone : ""}.
+      </p>
       <section className={styles.column}>
-      {produceObject.length > 0
-        ? produceObject.map((produce: string, index: number) => (
-            <label key={index}>
-              <li>{produce}</li>
-            </label>
-          ))
-        : ""}
+        {produceObject.length > 0
+          ? produceObject.map((produce: string, index: number) => (
+              <label key={index}>
+                <li>{produce}</li>
+              </label>
+            ))
+          : ""}
       </section>
     </Tile>
   );
