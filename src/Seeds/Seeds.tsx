@@ -23,11 +23,15 @@ export function Seeds() {
           </option>
         ))}
       </select>
-      <p>Days To Germination: {seedData ? seedData.germination : ""}</p>
-      <p>Days To Harvest: {seedData ? seedData.daysToHarvest : ""}</p>
-      <p>Planting Depth: {seedData ? seedData.plantingDepth + " (cm)" : ""}</p>
-      <p>Optionmal Tempature: {seedData ? seedData.optimalTemp : ""}</p>
-      <p>Sunlight Needed: {seedData ? seedData.sunlight : ""}</p>
+      <section className={styles.text}>
+        <p>Days To Germination: {seedData ? seedData.germination : ""}</p>
+        <p>Days To Harvest: {seedData ? seedData.daysToHarvest : ""}</p>
+        <p>
+          Planting Depth: {seedData ? seedData.plantingDepth + " (cm)" : ""}
+        </p>
+        <p>Optionmal Tempature: {seedData ? seedData.optimalTemp : ""}</p>
+        <p>Sunlight Needed: {seedData ? seedData.sunlight : ""}</p>
+      </section>
     </Tile>
   );
 }

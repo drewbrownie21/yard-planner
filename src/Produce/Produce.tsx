@@ -6,14 +6,17 @@ export function Produce({ zone }: { zone: string }) {
   let produceObject = findProduce(zone);
 
   return (
-    <Tile title="Produce" childrenClassName={styles.column}>
+    <Tile title="Produce">
+      <p>{zone.length > 0 ? "The following produce grows well in " + zone : ""}.</p>
+      <section className={styles.column}>
       {produceObject.length > 0
         ? produceObject.map((produce: string, index: number) => (
             <label key={index}>
-              <ul>{produce}</ul>
+              <li>{produce}</li>
             </label>
           ))
         : ""}
+      </section>
     </Tile>
   );
 }
