@@ -16,7 +16,6 @@ export function Seeds() {
     <Tile title="Seeds" childrenClassName={styles.column}>
       <select onChange={handleSelectChange}>
         <option value={""}>-- Select --</option>
-        {/* Learned that using { you have to explicity use return or it thinks it is void but ( implicitely returns */}
         {seedKeys.map((seedName: string, index: number) => (
           <option value={seedName} key={index}>
             {seedName}
@@ -24,13 +23,11 @@ export function Seeds() {
         ))}
       </select>
       <section className={styles.text}>
-        <p>Days To Germination: {seedData ? seedData.germination : ""}</p>
-        <p>Days To Harvest: {seedData ? seedData.daysToHarvest : ""}</p>
-        <p>
-          Planting Depth: {seedData ? seedData.plantingDepth + " (cm)" : ""}
-        </p>
-        <p>Optionmal Tempature: {seedData ? seedData.optimalTemp : ""}</p>
-        <p>Sunlight Needed: {seedData ? seedData.sunlight : ""}</p>
+        <p>Days To Germination: {seedData?.germination}</p>
+        <p>Days To Harvest: {seedData?.daysToHarvest}</p>
+        <p>Planting Depth: {seedData?.plantingDepth + " (cm)"}</p>
+        <p>Optionmal Tempature: {seedData?.optimalTemp}</p>
+        <p>Sunlight Needed: {seedData?.sunlight}</p>
       </section>
     </Tile>
   );
