@@ -6,6 +6,7 @@ import styles from "./App.module.css";
 import { useState } from "react";
 import { Produce } from "./Produce/Produce";
 import { Seeds } from "./Seeds/Seeds";
+import { Test } from "./Test"
 
 export type FormData = {
   zone: string;
@@ -48,6 +49,7 @@ function App() {
         />
         <Produce zone={userProfile.zone} />
         <Seeds />
+        <Test />
       </main>
     </>
   );
