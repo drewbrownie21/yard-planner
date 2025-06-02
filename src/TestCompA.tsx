@@ -8,15 +8,19 @@ const TODOS = [
     { id: "2", task: 'Do that' },
   ];
 
+//   const TODOS = [];
+
+//   const TODOS = undefined;
+
+// HOC typically desiganted by starting the naming using the word with
+// Can add edge case logic in the HOC
 const withNoData = (Component:any) => (props:any) => {
-    // Can add edge case logic in the HOC
     if (!props.data) return <div>No data loaded yet.</div>;
 
     return <Component {...props}/>
 }
 
 const withEmptyData = (Component:any) => (props:any) => {
-    // Can add edge case logic in the HOC
     if (!props.data.length) return <div>Data is empty.</div>;
 
     return <Component {...props}/>
