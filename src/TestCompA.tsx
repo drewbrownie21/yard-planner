@@ -14,6 +14,7 @@ const TODOS = [
 
 // HOC typically desiganted by starting the naming using the word with
 // Can add edge case logic in the HOC
+// The question to ask is; is it the components job to handle the edge case? If so, probably put it in component not HOC
 const withNoData = (Component:any) => (props:any) => {
     if (!props.data) return <div>No data loaded yet.</div>;
 
