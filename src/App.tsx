@@ -48,7 +48,6 @@ function App() {
         />
         <Produce zone={userProfile.zone} />
         <Seeds />
-        <Test />
       </main>
     </>
   );
