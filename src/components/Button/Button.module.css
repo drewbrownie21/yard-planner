@@ -1,5 +1,5 @@
 .button {
-  background-color: #c7e8dc; /* Green */
+  background-color: #c7e8dc;
   border: none;
   color: rgb(2, 79, 26);
   padding: 5px 10px;
@@ -14,3 +14,46 @@
     8px 5px 5px 0 rgba(0, 0, 0, 0.2),
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
 }
+
+.primaryButton{
+  background-color: #34c759;
+  border: none;
+  color: rgb(2, 79, 26);
+  padding: 5px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
+  width: 30%;
+  box-shadow:
+    8px 5px 5px 0 rgba(0, 0, 0, 0.2),
+    8px 5px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.primaryButton:hover{
+  background-color: #26b249;
+}
+
+.secondaryButton{
+  background-color: #e5e7eb;
+  border: none;
+  color: rgb(2, 79, 26);
+  padding: 5px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 25px;
+  width: 30%;
+  box-shadow:
+    8px 5px 5px 0 rgba(0, 0, 0, 0.2),
+    8px 5px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.secondaryButton:hover{
+  background-color: #d1d3d5;
+}
+

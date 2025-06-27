@@ -1,20 +1,19 @@
 .body {
-  background-color: rgb(10, 169, 36);
+  background-color: #8ed9ac;
+  font-family: 'Poppins', sans-serif;
   height: 200px;
   width: 100%;
   max-width: 300px;
   min-width: 300px;
   padding: 10px;
   border-radius: 25px;
-  box-shadow:
-    0 8px 16px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .header {
-  color: rgb(32, 32, 32);
-  font-family: Arial, Helvetica, sans-serif;
+  color: #1f2937;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   font-weight: bold;
-  font-size: x-large;
+  font-size: 1.5rem;
 }

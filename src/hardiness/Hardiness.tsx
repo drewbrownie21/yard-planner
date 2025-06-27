@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
-import styles from "./Hardiness.module.css";
+import styles from "../components/Button/Button.module.css";
 import grabZone from "../../data/zipcode";
 import { FormData } from "../App";
 
@@ -41,13 +41,13 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
             maxLength={5}
             type="text"
           />
-          <div className={styles.button}>
-            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} />
-            <Button buttonDisplayText={"Reset"} onClick={handleReset} />
+          <div>
+            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} cssClassName={styles.primaryButton} />
+            <Button buttonDisplayText={"Reset"} onClick={handleReset} cssClassName={styles.secondaryButton}/>
           </div>
           <section className={styles.hardinessResults}>
-            <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "N/A"}</b>
-            <b>Zone: {displayZipCode.length > 0 ? userProfile.zone : "N/A"}</b>
+            <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "-"}</b><br /> 
+            <b>Zone: {displayZipCode.length > 0 ? userProfile.zone : "-"}</b>
           </section>
         </form>
       </Tile>
