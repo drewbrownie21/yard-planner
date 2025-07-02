@@ -42,7 +42,7 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
             type="text"
           />
           <div>
-            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} cssClassName={styles.primaryButton} />
+            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} cssClassName={styles.primaryButton} disabled={zipcode.length > 0 ? false : true}/>
             <Button buttonDisplayText={"Reset"} onClick={handleReset} cssClassName={styles.secondaryButton}/>
           </div>
           <section className={styles.hardinessResults}>
