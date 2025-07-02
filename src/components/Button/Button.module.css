@@ -36,6 +36,12 @@
   background-color: #26b249;
 }
 
+.primaryButton:disabled{
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
 .secondaryButton{
   background-color: #e5e7eb;
   border: none;
@@ -56,4 +62,3 @@
 .secondaryButton:hover{
   background-color: #d1d3d5;
 }
-
