@@ -15,7 +15,7 @@
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
-.primaryButton{
+.primaryButton {
   background-color: #34c759;
   border: none;
   color: rgb(2, 79, 26);
@@ -32,17 +32,17 @@
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
-.primaryButton:hover{
+.primaryButton:hover {
   background-color: #26b249;
 }
 
-.primaryButton:disabled{
+.primaryButton:disabled {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
 }
 
-.secondaryButton{
+.secondaryButton {
   background-color: #e5e7eb;
   border: none;
   color: rgb(2, 79, 26);
@@ -59,6 +59,6 @@
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
-.secondaryButton:hover{
+.secondaryButton:hover {
   background-color: #d1d3d5;
 }

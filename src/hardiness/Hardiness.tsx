@@ -42,11 +42,21 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
             type="text"
           />
           <div>
-            <Button buttonDisplayText={"Submit"} onClick={handleSubmit} cssClassName={styles.primaryButton} disabled={zipcode.length > 0 ? false : true}/>
-            <Button buttonDisplayText={"Reset"} onClick={handleReset} cssClassName={styles.secondaryButton}/>
+            <Button
+              buttonDisplayText={"Submit"}
+              onClick={handleSubmit}
+              cssClassName={styles.primaryButton}
+              disabled={zipcode.length > 0 ? false : true}
+            />
+            <Button
+              buttonDisplayText={"Reset"}
+              onClick={handleReset}
+              cssClassName={styles.secondaryButton}
+            />
           </div>
           <section className={styles.hardinessResults}>
-            <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "-"}</b><br /> 
+            <b>Zipcode: {displayZipCode.length > 0 ? displayZipCode : "-"}</b>
+            <br />
             <b>Zone: {displayZipCode.length > 0 ? userProfile.zone : "-"}</b>
           </section>
         </form>
