@@ -1,4 +1,5 @@
 .header {
   text-align: center;
   color: #222;
+  display: flex;
 }

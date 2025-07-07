@@ -3,9 +3,10 @@ import { Grass } from "./Grass/Grass";
 import { Haridness } from "./Hardiness/Hardiness";
 import { Header } from "./components/Header/Header";
 import styles from "./App.module.css";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Produce } from "./Produce/Produce";
 import { Seeds } from "./Seeds/Seeds";
+import { LightModeContext } from "./context/ThemeContext";
 
 export type FormData = {
   zone: string;
@@ -20,6 +21,14 @@ function App() {
     zipcode: "",
   });
 
+  const lightMode = useContext(LightModeContext);
+
+  useEffect(() => {
+    document.body.classList.toggle("light", lightMode);
+    document.body.classList.toggle("dark", !lightMode);
+  }, [lightMode]);
+
+
   // keyof typeof -> keyof telling us what object is related to and the typeof is infered because we define them as empty strings above
   const updateUserProfile = (
     field: keyof typeof userProfile,
@@ -32,9 +41,9 @@ function App() {
   };
 
   return (
-    <>
+    <main>
       <Header />
-      <main className={styles.main}>
+      <section className={styles.main}>
         <Haridness
           updateUserProfile={updateUserProfile}
           userProfile={userProfile}
@@ -48,8 +57,8 @@ function App() {
         />
         <Produce zone={userProfile.zone} />
         <Seeds />
-      </main>
-    </>
+      </section>
+    </main>
   );
 }
 
