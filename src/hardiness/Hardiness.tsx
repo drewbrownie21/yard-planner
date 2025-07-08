@@ -1,10 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Tile from "../components/Tile/Tile";
 import { Button } from "../components/Button/Button";
 import styles from "../components/Button/Button.module.css";
 import grabZone from "../../data/zipcode";
 import { FormData } from "../App";
-import { LightModeContext } from "../context/ThemeContext";
 
 type HardinessType = {
   updateUserProfile: (field: keyof FormData, value: string) => void;
@@ -26,6 +25,7 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
   const handleReset = (e: any) => {
     e.preventDefault();
     setDisplayZipCode("");
+    setZipcode("")
     updateUserProfile("zipcode", "");
     updateUserProfile("zone", "");
   };
