@@ -1,0 +1,8 @@
+.containerLight {
+  background-color: #f5f5f5;
+}
+
+.containerDark {
+  --bg: #1e1e1e;
+  --text: #ffffff;
+}
