@@ -13,7 +13,7 @@ type DarkModeContextType = {
 
 const DarkModeContext = createContext<DarkModeContextType>({
   darkMode: false,
-  toggleDarkMode: () => {},
+  toggleDarkMode: () => {}, //empty function to satisfy the type
 });
 
 type DarkModeProviderProps = {
@@ -33,6 +33,7 @@ function DarkModeProvider({ children }: DarkModeProviderProps) {
   }, [darkMode]);
 
   return (
+    // Provider is how we pass data to the context -> which is in the values
     <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
     </DarkModeContext.Provider>
