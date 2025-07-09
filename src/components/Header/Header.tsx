@@ -6,7 +6,9 @@ const MainHeader = React.memo(() => {
   return (
     <header className={styles.header}>
       <h1>Yard Planner!</h1>
-      <LightSwitch />
+      <figure className={styles.toggle}>
+        <LightSwitch />
+      </figure>
     </header>
   );
 });
