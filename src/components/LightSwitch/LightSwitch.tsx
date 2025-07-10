@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "../../context/ThemeContext";
 import sunIcon from "../../images/sun.png";
 import moonIcon from "../../images/moon.png";
-import styles from "./LightSwitch.module.css"
+import styles from "./LightSwitch.module.css";
 
 function LightSwitch() {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
