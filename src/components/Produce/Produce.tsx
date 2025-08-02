@@ -1,5 +1,5 @@
-import Tile from "../components/Tile/Tile";
-import findProduce from "../../data/produce";
+import Tile from "../Tile/Tile";
+import findProduce from "../../../data/produce";
 import styles from "./Produce.module.css";
 
 export function Produce({ zone }: { zone: string }) {

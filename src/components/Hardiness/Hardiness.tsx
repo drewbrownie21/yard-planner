@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Tile from "../components/Tile/Tile";
-import { Button } from "../components/Button/Button";
-import styles from "../components/Button/Button.module.css";
-import grabZone from "../../data/zipcode";
-import { FormData } from "../App";
+import Tile from "../Tile/Tile";
+import { Button } from "../Button/Button";
+import styles from "../../components/Button/Button.module.css";
+import grabZone from "../../../data/zipcode";
+import { FormData } from "../../App";
 
 type HardinessType = {
   updateUserProfile: (field: keyof FormData, value: string) => void;

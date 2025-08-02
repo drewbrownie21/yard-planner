@@ -1,11 +1,11 @@
-import { Care } from "./Care/Care";
-import { Grass } from "./Grass/Grass";
-import { Haridness } from "./Hardiness/Hardiness";
+import { Care } from "./components/Care/Care";
+import { Grass } from "./components/Grass/Grass";
+import { Haridness } from "./components/Hardiness/Hardiness";
 import { Header } from "./components/Header/Header";
 import styles from "./App.module.css";
 import { useState } from "react";
-import { Produce } from "./Produce/Produce";
-import { Seeds } from "./Seeds/Seeds";
+import { Produce } from "./components/Produce/Produce";
+import { Seeds } from "./components/Seeds/Seeds";
 import { DarkModeProvider } from "./context/ThemeContext";
 
 export type FormData = {

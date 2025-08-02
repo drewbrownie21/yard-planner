@@ -1,5 +1,5 @@
-import Tile from "../components/Tile/Tile";
-import { mapGrassSunLevels } from "../../data/grassSunLevels";
+import Tile from "../Tile/Tile";
+import { mapGrassSunLevels } from "../../../data/grassSunLevels";
 import styles from "./Care.module.css";
 
 export function Care({ grassType }: { grassType: string }) {

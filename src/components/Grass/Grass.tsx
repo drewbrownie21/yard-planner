@@ -1,6 +1,6 @@
-import Tile from "../components/Tile/Tile";
-import grassTypes from "../../data/grassTypes";
-import { FormData } from "../App";
+import Tile from "../Tile/Tile";
+import grassTypes from "../../../data/grassTypes";
+import { FormData } from "../../App";
 import styles from "./Grass.module.css";
 
 type GrassType = {

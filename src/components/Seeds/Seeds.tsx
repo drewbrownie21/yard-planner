@@ -1,6 +1,6 @@
-import Tile from "../components/Tile/Tile";
+import Tile from "../Tile/Tile";
 import styles from "./Seeds.module.css";
-import { getSeedData, getSeedNames } from "../../data/seeds";
+import { getSeedData, getSeedNames } from "../../../data/seeds";
 import { useState } from "react";
 
 export function Seeds() {
