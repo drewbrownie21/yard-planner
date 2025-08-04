@@ -1,12 +1,9 @@
 import styles from "./Header.module.css";
 import LightSwitch from "../LightSwitch/LightSwitch";
 import { Side } from "./Side/Side";
+import type { SideTypes } from "./Side/Side";
 
-type HeaderTypes = {
-  handleReset?: () => void;
-};
-
-export function Header({ handleReset }: HeaderTypes) {
+export function Header({ handleReset }: SideTypes) {
   return (
     <header className={styles.header}>
       <h1 className={styles.text}>Yard Planner!</h1>

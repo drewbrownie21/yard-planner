@@ -1,7 +1,7 @@
 import { Button } from "../../Button/Button";
 import styles from "../../../components/Button/Button.module.css";
 
-type SideTypes = {
+export type SideTypes = {
   handleReset?: () => void;
 };
 
