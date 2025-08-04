@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Produce } from "./components/Produce/Produce";
 import { Seeds } from "./components/Seeds/Seeds";
 import { DarkModeProvider } from "./context/ThemeContext";
+import { Drag } from "./components/Drag/Drag";
 
 export type FormData = {
   zone: string;
@@ -20,6 +21,14 @@ function App() {
     grassType: "",
     zipcode: "",
   });
+
+  const [reset, setReset] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+
+  const handleReset = () => {
+    setReset(!reset);
+    console.log("RESET");
+  };
 
   // keyof typeof -> keyof telling us what object is related to and the typeof is infered because we define them as empty strings above
   const updateUserProfile = (
@@ -35,21 +44,25 @@ function App() {
   return (
     <main>
       <DarkModeProvider>
-        <Header />
+        <Header handleReset={handleReset} />
         <section className={styles.main}>
-          <Haridness
-            updateUserProfile={updateUserProfile}
-            userProfile={userProfile}
-          />
-          <Grass
-            updateUserProfile={updateUserProfile}
-            userProfile={userProfile}
-          />
-          <Care
-            grassType={userProfile.zone.length > 0 ? userProfile.grassType : ""}
-          />
-          <Produce zone={userProfile.zone} />
-          <Seeds />
+          <Drag reset={true} editMode={true}>
+            <Haridness
+              updateUserProfile={updateUserProfile}
+              userProfile={userProfile}
+            />
+            <Grass
+              updateUserProfile={updateUserProfile}
+              userProfile={userProfile}
+            />
+            <Care
+              grassType={
+                userProfile.zone.length > 0 ? userProfile.grassType : ""
+              }
+            />
+            <Produce zone={userProfile.zone} />
+            <Seeds />
+          </Drag>
         </section>
       </DarkModeProvider>
     </main>
