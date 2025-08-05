@@ -3,9 +3,10 @@ import styles from "../../../components/Button/Button.module.css";
 
 export type SideTypes = {
   handleReset?: () => void;
+  handleEditMode: () => void;
 };
 
-export function Side({ handleReset }: SideTypes) {
+export function Side({ handleReset, handleEditMode }: SideTypes) {
   return (
     <aside>
       <Button
@@ -13,11 +14,13 @@ export function Side({ handleReset }: SideTypes) {
         onClick={handleReset}
         cssClassName={styles.optionsButtons}
       />
-      <Button
-        buttonDisplayText={"Reset"}
-        onClick={handleReset}
-        cssClassName={styles.optionsButtons}
-      />
-    </aside>
+      <label>
+          Edit Mode: 
+          <input 
+            type="checkbox" 
+            name="editModeCheckBox" 
+            onChange={handleEditMode}
+            />
+      </label>    </aside>
   );
 }

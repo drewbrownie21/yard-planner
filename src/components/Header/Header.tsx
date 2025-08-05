@@ -3,7 +3,7 @@ import LightSwitch from "../LightSwitch/LightSwitch";
 import { Side } from "./Side/Side";
 import type { SideTypes } from "./Side/Side";
 
-export function Header({ handleReset }: SideTypes) {
+export function Header({ handleReset, handleEditMode }: SideTypes) {
   return (
     <header className={styles.header}>
       <h1 className={styles.text}>Yard Planner!</h1>
@@ -11,7 +11,7 @@ export function Header({ handleReset }: SideTypes) {
       <figure className={styles.toggle}>
         <LightSwitch />
       </figure>
-      <Side handleReset={handleReset} />
+      <Side handleReset={handleReset} handleEditMode={handleEditMode}/>
       </div>
     </header>
   );

@@ -30,6 +30,10 @@ function App() {
     console.log("RESET");
   };
 
+  const handleEditMode = () => {
+    setEditMode(!editMode)
+  }
+
   // keyof typeof -> keyof telling us what object is related to and the typeof is infered because we define them as empty strings above
   const updateUserProfile = (
     field: keyof typeof userProfile,
@@ -44,9 +48,9 @@ function App() {
   return (
     <main>
       <DarkModeProvider>
-        <Header handleReset={handleReset} />
+        <Header handleReset={handleReset} handleEditMode={handleEditMode} />
         <section className={styles.main}>
-          <Drag reset={true} editMode={true}>
+          <Drag reset={reset} editMode={editMode}>
             <Haridness
               updateUserProfile={updateUserProfile}
               userProfile={userProfile}
