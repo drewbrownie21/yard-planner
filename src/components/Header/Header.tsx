@@ -8,10 +8,10 @@ export function Header({ handleReset, handleEditMode }: SideTypes) {
     <header className={styles.header}>
       <h1 className={styles.text}>Yard Planner!</h1>
       <div className={styles.sidePanel}>
-      <figure className={styles.toggle}>
-        <LightSwitch />
-      </figure>
-      <Side handleReset={handleReset} handleEditMode={handleEditMode}/>
+        <figure className={styles.toggle}>
+          <LightSwitch />
+        </figure>
+        <Side handleReset={handleReset} handleEditMode={handleEditMode} />
       </div>
     </header>
   );

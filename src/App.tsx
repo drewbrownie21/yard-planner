@@ -31,8 +31,8 @@ function App() {
   };
 
   const handleEditMode = () => {
-    setEditMode(!editMode)
-  }
+    setEditMode(!editMode);
+  };
 
   // keyof typeof -> keyof telling us what object is related to and the typeof is infered because we define them as empty strings above
   const updateUserProfile = (

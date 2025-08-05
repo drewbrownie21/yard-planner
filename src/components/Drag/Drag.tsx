@@ -18,25 +18,39 @@ enum Quads {
   quadTwo,
   quadThree,
   quadFour,
+  quadFive,
+  quadSix,
+  quadSeven,
+  quadEight,
+  quadNine,
 }
+
+type PrevPos = {
+  slotIndex: number;
+  position: Position;
+};
 
 export function Drag({ reset, editMode, children }: DragProps) {
   const [selectedPosition, setSelectedPosition] = useState({ x: 0.0, y: 0.0 });
   const draggingIndex = useRef<number | null>(null);
   const [positions, setPositions] = useState<{ [key: number]: Position }>({});
+  const [previousPosition, setPreviousPosition] = useState<PrevPos | null>(
+    null,
+  );
+  const [populatedGrid, setPopulatedGrid] = useState<boolean[]>(
+    new Array(9).fill(false),
+  );
 
-  const w = window.innerWidth;
-  const X_BOUNDARY = 0.5 * w;
-  const Y_BOUNDARY = 0.3 * w;
+  const STARTING_X = 100;
+  const STARTING_Y = 100;
 
-  const QUAD_ONE_X = 0.1 * w;
-  const QUAD_ONE_Y = 0.1 * w;
-  const QUAD_TWO_X = 0.7 * w;
-  const QUAD_TWO_Y = 0.15 * w;
-  const QUAD_THREE_X = 0.15 * w;
-  const QUAD_THREE_Y = 0.5 * w;
-  const QUAD_FOUR_X = 0.7 * w;
-  const QUAD_FOUR_Y = 0.5 * w;
+  const STARTING_POSITIONS = [
+    { x: STARTING_X, y: STARTING_Y }, // col 1, row 1
+    { x: STARTING_X + 320, y: STARTING_Y }, // col 2, row 1
+    { x: STARTING_X, y: STARTING_Y + 220 }, // col 1, row 2
+    { x: STARTING_X + 320, y: STARTING_Y + 220 }, // col 2, row 2
+    { x: STARTING_X, y: STARTING_Y + 440 }, // col 1, row 3
+  ];
 
   const handleSetPositions = (index: number, x: number, y: number) => {
     setPositions((prev) => ({
@@ -45,32 +59,76 @@ export function Drag({ reset, editMode, children }: DragProps) {
     }));
   };
 
-  const getScreenSector = (pos: { x: number; y: number }, index: number) => {
-    let quadrant: Quads;
-    if (pos.x < X_BOUNDARY && pos.y < Y_BOUNDARY) {
-      quadrant = Quads.quadOne;
-    } else if (pos.x > X_BOUNDARY && pos.y < Y_BOUNDARY) {
-      quadrant = Quads.quadTwo;
-    } else if (pos.x < X_BOUNDARY && pos.y > Y_BOUNDARY) {
-      quadrant = Quads.quadThree;
-    } else {
-      quadrant = Quads.quadFour;
-    }
-    selectQuadrant(quadrant, index);
-  };
-
   function selectQuadrant(quad: Quads, index: number) {
     switch (quad) {
       case Quads.quadOne:
-        return handleSetPositions(index, QUAD_ONE_X, QUAD_ONE_Y);
+        return handleSetPositions(index, STARTING_X, STARTING_Y);
       case Quads.quadTwo:
-        return handleSetPositions(index, QUAD_TWO_X, QUAD_TWO_Y);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y);
       case Quads.quadThree:
-        return handleSetPositions(index, QUAD_THREE_X, QUAD_THREE_Y);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y);
       case Quads.quadFour:
-        return handleSetPositions(index, QUAD_FOUR_X, QUAD_FOUR_Y);
+        return handleSetPositions(index, STARTING_X, STARTING_Y + 220);
+      case Quads.quadFive:
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220);
+      case Quads.quadSix:
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
+      case Quads.quadSeven:
+        return handleSetPositions(index, STARTING_X, STARTING_Y + 440);
+      case Quads.quadEight:
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 440);
+      case Quads.quadNine:
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 440);
     }
   }
+
+  const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
+  const X_BOUNDARY_TWO = STARTING_X + 480; // halfway col 2 and 3
+  const Y_BOUNDARY_ONE = STARTING_Y + 110; // halfway row 1 & 2 (50 + 220/2)
+  const Y_BOUNDARY_TWO = STARTING_Y + 330; // halfway row 2 & 3 (50 + 220 + 220/2)
+
+  const getScreenSector = (pos: { x: number; y: number }, index: number) => {
+    if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
+      return selectQuadrant(Quads.quadOne, index);
+    } else if (
+      pos.x >= X_BOUNDARY_ONE &&
+      pos.x < X_BOUNDARY_TWO &&
+      pos.y < Y_BOUNDARY_ONE
+    ) {
+      return selectQuadrant(Quads.quadTwo, index);
+    } else if (pos.x >= X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) {
+      return selectQuadrant(Quads.quadThree, index);
+    } else if (
+      pos.x < X_BOUNDARY_ONE &&
+      pos.y >= Y_BOUNDARY_ONE &&
+      pos.y < Y_BOUNDARY_TWO
+    ) {
+      return selectQuadrant(Quads.quadFour, index);
+    } else if (
+      pos.x >= X_BOUNDARY_ONE &&
+      pos.x < X_BOUNDARY_TWO &&
+      pos.y >= Y_BOUNDARY_ONE &&
+      pos.y < Y_BOUNDARY_TWO
+    ) {
+      return selectQuadrant(Quads.quadFive, index);
+    } else if (
+      pos.x >= X_BOUNDARY_TWO &&
+      pos.y >= Y_BOUNDARY_ONE &&
+      pos.y < Y_BOUNDARY_TWO
+    ) {
+      return selectQuadrant(Quads.quadSix, index);
+    } else if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_TWO) {
+      return selectQuadrant(Quads.quadSeven, index);
+    } else if (
+      pos.x >= X_BOUNDARY_ONE &&
+      pos.x < X_BOUNDARY_TWO &&
+      pos.y >= Y_BOUNDARY_TWO
+    ) {
+      return selectQuadrant(Quads.quadEight, index);
+    } else {
+      return selectQuadrant(Quads.quadNine, index);
+    }
+  };
 
   // this is used for the snap to logic
   const positionsRef = useRef(positions);
@@ -79,8 +137,11 @@ export function Drag({ reset, editMode, children }: DragProps) {
   }, [positions]);
 
   useEffect(() => {
-    setPositions(Object.keys(positions).map(() => ({ x: 0.0, y: 0.0 })));
-    draggingIndex.current = null;
+    const initialPositions: { [key: number]: { x: number; y: number } } = {};
+    STARTING_POSITIONS.forEach((pos, i) => {
+      initialPositions[i] = { x: pos.x, y: pos.y };
+    });
+    setPositions(initialPositions);
   }, [reset]);
 
   //TODO: I think I can make it so this uses an id/ref from the components themselves instead of passing it like I am below

@@ -4,12 +4,12 @@
   justify-content: center;
 }
 
-.text{
+.text {
   text-align: center;
   flex-grow: 8;
   align-items: center;
 }
 
-.sidePanel{
+.sidePanel {
   margin-left: auto;
 }

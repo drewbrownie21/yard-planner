@@ -15,12 +15,13 @@ export function Side({ handleReset, handleEditMode }: SideTypes) {
         cssClassName={styles.optionsButtons}
       />
       <label>
-          Edit Mode: 
-          <input 
-            type="checkbox" 
-            name="editModeCheckBox" 
-            onChange={handleEditMode}
-            />
-      </label>    </aside>
+        Edit Mode:
+        <input
+          type="checkbox"
+          name="editModeCheckBox"
+          onChange={handleEditMode}
+        />
+      </label>{" "}
+    </aside>
   );
 }
