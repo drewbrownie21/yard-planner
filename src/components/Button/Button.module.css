@@ -64,18 +64,24 @@
 }
 
 .optionsButtons {
-  background-color: #e5e7eb;
+  background-color: #c7e8dc;
   border: none;
   color: rgb(2, 79, 26);
-  padding: 5px 10px;
+  padding: 8px 20px;
   text-align: center;
   font-weight: bold;
-  font-size: x-large;
-  display: inline-block;
   font-size: 16px;
+  display: inline-block;
   border-radius: 25px;
-  width: 30%;
+  width: auto;
+  min-width: 80px;
   box-shadow:
     8px 5px 5px 0 rgba(0, 0, 0, 0.2),
     8px 5px 5px 0 rgba(0, 0, 0, 0.19);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.optionsButtons:hover {
+  background-color: #b3c3bd;
 }

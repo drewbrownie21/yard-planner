@@ -10,6 +10,7 @@
   align-items: center;
 }
 
-.sidePanel {
-  margin-left: auto;
+.side {
+  display: flex;
+  flex-direction: row;
 }

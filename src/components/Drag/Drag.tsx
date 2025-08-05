@@ -52,7 +52,13 @@ export function Drag({ reset, editMode, children }: DragProps) {
     { x: STARTING_X, y: STARTING_Y + 440 }, // col 1, row 3
   ];
 
-  const handleSetPositions = (index: number, x: number, y: number) => {
+  const handleSetPositions = (
+    index: number,
+    x: number,
+    y: number,
+    spotIndex: number,
+  ) => {
+    console.log(spotIndex);
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
@@ -62,23 +68,23 @@ export function Drag({ reset, editMode, children }: DragProps) {
   function selectQuadrant(quad: Quads, index: number) {
     switch (quad) {
       case Quads.quadOne:
-        return handleSetPositions(index, STARTING_X, STARTING_Y);
+        return handleSetPositions(index, STARTING_X, STARTING_Y, 0);
       case Quads.quadTwo:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y, 1);
       case Quads.quadThree:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y, 2);
       case Quads.quadFour:
-        return handleSetPositions(index, STARTING_X, STARTING_Y + 220);
+        return handleSetPositions(index, STARTING_X, STARTING_Y + 220, 3);
       case Quads.quadFive:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220, 4);
       case Quads.quadSix:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220, 5);
       case Quads.quadSeven:
-        return handleSetPositions(index, STARTING_X, STARTING_Y + 440);
+        return handleSetPositions(index, STARTING_X, STARTING_Y + 440, 6);
       case Quads.quadEight:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 440);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 440, 7);
       case Quads.quadNine:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 440);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 440, 8);
     }
   }
 
@@ -144,7 +150,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
     setPositions(initialPositions);
   }, [reset]);
 
-  //TODO: I think I can make it so this uses an id/ref from the components themselves instead of passing it like I am below
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
     // Need to set the ref to true here when the user clicks the element
     draggingIndex.current = editMode ? index : null;

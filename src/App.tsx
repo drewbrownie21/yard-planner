@@ -30,8 +30,8 @@ function App() {
     console.log("RESET");
   };
 
-  const handleEditMode = () => {
-    setEditMode(!editMode);
+  const handleEditMode = (isEditing: boolean) => {
+    setEditMode(isEditing);
   };
 
   // keyof typeof -> keyof telling us what object is related to and the typeof is infered because we define them as empty strings above
