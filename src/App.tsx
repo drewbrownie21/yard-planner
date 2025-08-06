@@ -8,6 +8,7 @@ import { Produce } from "./components/Produce/Produce";
 import { Seeds } from "./components/Seeds/Seeds";
 import { DarkModeProvider } from "./context/ThemeContext";
 import { Drag } from "./components/Drag/Drag";
+import { Weeds } from "./components/Weeds/Weeds";
 
 export type FormData = {
   zone: string;
@@ -66,6 +67,7 @@ function App() {
             />
             <Produce zone={userProfile.zone} />
             <Seeds />
+            <Weeds />
           </Drag>
         </section>
       </DarkModeProvider>

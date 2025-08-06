@@ -22,7 +22,7 @@ export function Seeds() {
           </option>
         ))}
       </select>
-      <section className={styles.text}>
+      <section>
         <p>Days To Germination: {seedData?.germination}</p>
         <p>Days To Harvest: {seedData?.daysToHarvest}</p>
         <p>Planting Depth: {seedData?.plantingDepth + " (cm)"}</p>

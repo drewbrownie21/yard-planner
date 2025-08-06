@@ -3,12 +3,14 @@ type DragableProps = {
   index: number;
   onMouseDown: (e: React.MouseEvent, index: number) => void;
   children: React.ReactNode;
+  editMode: Boolean;
 };
 export function DraggableComponent({
   position,
   index,
   onMouseDown,
   children,
+  editMode,
 }: DragableProps) {
   return (
     <div
@@ -17,7 +19,7 @@ export function DraggableComponent({
         position: "absolute",
         left: `${position.x}px`,
         top: `${position.y}px`,
-        cursor: "grab",
+        cursor: editMode ? "grab" : "mousepointer",
       }}
     >
       {children}

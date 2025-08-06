@@ -25,6 +25,7 @@ export function Side({ handleReset, handleEditMode }: SideTypes) {
         buttonDisplayText={"Reset"}
         onClick={handleReset}
         cssClassName={styles.optionsButtons}
+        disabled={!editMode}
       />
       <Button
         buttonDisplayText={editMode ? "Save" : "Edit"}

@@ -1,0 +1,14 @@
+.column {
+  margin-left: 20px;
+  line-height: 10px;
+}
+
+.text {
+  font-size: 12px; /* Control font size here */
+  line-height: 1; /* Spacing between lines */
+  max-width: 400px; /* Limits width for better readability */
+  white-space: normal; /* Allows wrapping */
+  word-wrap: break-word; /* Break long words if needed */
+  color: #333; /* Optional: nice dark text */
+  margin: 10px 0; /* Spacing around the block */
+}

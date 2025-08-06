@@ -20,36 +20,23 @@ enum Quads {
   quadFour,
   quadFive,
   quadSix,
-  quadSeven,
-  quadEight,
-  quadNine,
 }
-
-type PrevPos = {
-  slotIndex: number;
-  position: Position;
-};
 
 export function Drag({ reset, editMode, children }: DragProps) {
   const [selectedPosition, setSelectedPosition] = useState({ x: 0.0, y: 0.0 });
   const draggingIndex = useRef<number | null>(null);
   const [positions, setPositions] = useState<{ [key: number]: Position }>({});
-  const [previousPosition, setPreviousPosition] = useState<PrevPos | null>(
-    null,
-  );
-  const [populatedGrid, setPopulatedGrid] = useState<boolean[]>(
-    new Array(9).fill(false),
-  );
 
   const STARTING_X = 100;
   const STARTING_Y = 100;
 
   const STARTING_POSITIONS = [
-    { x: STARTING_X, y: STARTING_Y }, // col 1, row 1
-    { x: STARTING_X + 320, y: STARTING_Y }, // col 2, row 1
-    { x: STARTING_X, y: STARTING_Y + 220 }, // col 1, row 2
-    { x: STARTING_X + 320, y: STARTING_Y + 220 }, // col 2, row 2
-    { x: STARTING_X, y: STARTING_Y + 440 }, // col 1, row 3
+    { x: STARTING_X, y: STARTING_Y }, // 0
+    { x: STARTING_X + 320, y: STARTING_Y }, // 1
+    { x: STARTING_X + 640, y: STARTING_Y }, // 2
+    { x: STARTING_X, y: STARTING_Y + 220 }, // 3
+    { x: STARTING_X + 320, y: STARTING_Y + 220 }, // 4
+    { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
   ];
 
   const handleSetPositions = (
@@ -58,11 +45,13 @@ export function Drag({ reset, editMode, children }: DragProps) {
     y: number,
     spotIndex: number,
   ) => {
-    console.log(spotIndex);
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
+    console.log("Spot index: " + spotIndex);
+    console.log("Index: " + index);
+    console.log(index);
   };
 
   function selectQuadrant(quad: Quads, index: number) {
@@ -79,12 +68,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
         return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220, 4);
       case Quads.quadSix:
         return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220, 5);
-      case Quads.quadSeven:
-        return handleSetPositions(index, STARTING_X, STARTING_Y + 440, 6);
-      case Quads.quadEight:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 440, 7);
-      case Quads.quadNine:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 440, 8);
     }
   }
 
@@ -104,35 +87,16 @@ export function Drag({ reset, editMode, children }: DragProps) {
       return selectQuadrant(Quads.quadTwo, index);
     } else if (pos.x >= X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) {
       return selectQuadrant(Quads.quadThree, index);
-    } else if (
-      pos.x < X_BOUNDARY_ONE &&
-      pos.y >= Y_BOUNDARY_ONE &&
-      pos.y < Y_BOUNDARY_TWO
-    ) {
+    } else if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_ONE) {
       return selectQuadrant(Quads.quadFour, index);
     } else if (
       pos.x >= X_BOUNDARY_ONE &&
       pos.x < X_BOUNDARY_TWO &&
-      pos.y >= Y_BOUNDARY_ONE &&
-      pos.y < Y_BOUNDARY_TWO
+      pos.y >= Y_BOUNDARY_ONE
     ) {
       return selectQuadrant(Quads.quadFive, index);
-    } else if (
-      pos.x >= X_BOUNDARY_TWO &&
-      pos.y >= Y_BOUNDARY_ONE &&
-      pos.y < Y_BOUNDARY_TWO
-    ) {
+    } else if (pos.x >= X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) {
       return selectQuadrant(Quads.quadSix, index);
-    } else if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_TWO) {
-      return selectQuadrant(Quads.quadSeven, index);
-    } else if (
-      pos.x >= X_BOUNDARY_ONE &&
-      pos.x < X_BOUNDARY_TWO &&
-      pos.y >= Y_BOUNDARY_TWO
-    ) {
-      return selectQuadrant(Quads.quadEight, index);
-    } else {
-      return selectQuadrant(Quads.quadNine, index);
     }
   };
 
@@ -206,6 +170,7 @@ export function Drag({ reset, editMode, children }: DragProps) {
             position={positions[index] || { x: 200, y: 200 }}
             index={index}
             onMouseDown={handleOnMouseDown}
+            editMode={editMode}
           >
             {child}
           </DraggableComponent>

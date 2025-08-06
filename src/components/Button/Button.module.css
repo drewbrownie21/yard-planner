@@ -85,3 +85,9 @@
 .optionsButtons:hover {
   background-color: #b3c3bd;
 }
+
+.optionsButtons:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
