@@ -39,42 +39,33 @@ export function Drag({ reset, editMode, children }: DragProps) {
     { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
   ];
 
-  const handleSetPositions = (
-    index: number,
-    x: number,
-    y: number,
-    spotIndex: number,
-  ) => {
+  const handleSetPositions = (index: number, x: number, y: number) => {
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
-    console.log("Spot index: " + spotIndex);
-    console.log("Index: " + index);
-    console.log(index);
   };
 
   function selectQuadrant(quad: Quads, index: number) {
     switch (quad) {
       case Quads.quadOne:
-        return handleSetPositions(index, STARTING_X, STARTING_Y, 0);
+        return handleSetPositions(index, STARTING_X, STARTING_Y);
       case Quads.quadTwo:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y, 1);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y);
       case Quads.quadThree:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y, 2);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y);
       case Quads.quadFour:
-        return handleSetPositions(index, STARTING_X, STARTING_Y + 220, 3);
+        return handleSetPositions(index, STARTING_X, STARTING_Y + 220);
       case Quads.quadFive:
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220, 4);
+        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220);
       case Quads.quadSix:
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220, 5);
+        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
     }
   }
 
   const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
   const X_BOUNDARY_TWO = STARTING_X + 480; // halfway col 2 and 3
   const Y_BOUNDARY_ONE = STARTING_Y + 110; // halfway row 1 & 2 (50 + 220/2)
-  const Y_BOUNDARY_TWO = STARTING_Y + 330; // halfway row 2 & 3 (50 + 220 + 220/2)
 
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
