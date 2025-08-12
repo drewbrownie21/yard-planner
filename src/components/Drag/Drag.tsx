@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { DraggableComponent } from "./Draggable";
-import getScreenSector from "./getScreenSelector";
 import React from "react";
 
 type DragProps = {
@@ -23,12 +22,28 @@ enum Quads {
   quadSix,
 }
 
+const STARTING_X = 100;
+const STARTING_Y = 100;
+
+const STARTING_POSITIONS = [
+  { x: STARTING_X, y: STARTING_Y }, // 0
+  { x: STARTING_X + 320, y: STARTING_Y }, // 1
+  { x: STARTING_X + 640, y: STARTING_Y }, // 2
+  { x: STARTING_X, y: STARTING_Y + 220 }, // 3
+  { x: STARTING_X + 320, y: STARTING_Y + 220 }, // 4
+  { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
+];
+
+const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
+const X_BOUNDARY_TWO = STARTING_X + 480; // halfway col 2 and 3
+const Y_BOUNDARY_ONE = STARTING_Y + 110; // halfway row 1 & 2 (50 + 220/2)
+
 export function Drag({ reset, editMode, children }: DragProps) {
   const [selectedPosition, setSelectedPosition] = useState({ x: 0.0, y: 0.0 });
   const draggingIndex = useRef<number | null>(null);
   const [positions, setPositions] = useState<{ [key: number]: Position }>({});
   const [newIndex, setNewIndex] = useState<number>(0);
-  const [oldIndex, setOldIndex] = useState<number>(0);
+  const [oldIndex, setOldIndex] = useState<number | null>(null);
   const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
 
   useEffect(() => {
@@ -39,18 +54,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
     console.log("The original position is: ");
     console.log(originalPos);
   }, [newIndex, oldIndex]);
-
-  const STARTING_X = 100;
-  const STARTING_Y = 100;
-
-  const STARTING_POSITIONS = [
-    { x: STARTING_X, y: STARTING_Y }, // 0
-    { x: STARTING_X + 320, y: STARTING_Y }, // 1
-    { x: STARTING_X + 640, y: STARTING_Y }, // 2
-    { x: STARTING_X, y: STARTING_Y + 220 }, // 3
-    { x: STARTING_X + 320, y: STARTING_Y + 220 }, // 4
-    { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
-  ];
 
   const handleSetPositions = (index: number, x: number, y: number) => {
     setPositions((prev) => ({
@@ -81,10 +84,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
         return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
     }
   }
-
-  const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
-  const X_BOUNDARY_TWO = STARTING_X + 480; // halfway col 2 and 3
-  const Y_BOUNDARY_ONE = STARTING_Y + 110; // halfway row 1 & 2 (50 + 220/2)
 
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
