@@ -28,7 +28,6 @@ function App() {
 
   const handleReset = () => {
     setReset(!reset);
-    console.log("RESET");
   };
 
   const handleEditMode = (isEditing: boolean) => {

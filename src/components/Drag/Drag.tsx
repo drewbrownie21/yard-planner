@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { DraggableComponent } from "./Draggable";
+import getScreenSector from "./getScreenSelector";
 import React from "react";
 
 type DragProps = {
@@ -27,22 +28,17 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const draggingIndex = useRef<number | null>(null);
   const [positions, setPositions] = useState<{ [key: number]: Position }>({});
   const [newIndex, setNewIndex] = useState<number>(0);
-  const [oldIndex, setOldIndex] = useState<number>(0)
-  const [originalPos, setOriginalPos] = useState<Position>({x:0.00, y:0.00}) 
+  const [oldIndex, setOldIndex] = useState<number>(0);
+  const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
 
   useEffect(() => {
-    console.log("")
-    console.log("")
-    console.log("The new index: " + newIndex)
-    console.log(positions[oldIndex])
-  }, [newIndex])
-
-  useEffect(() => {
-    console.log("")
-    console.log("")
-    console.log("The old index: " + oldIndex)
-    console.log("The old position is: " + originalPos)
-  }, [oldIndex])
+    console.log("");
+    console.log("");
+    console.log("The new index: " + newIndex);
+    console.log("The old index: " + oldIndex);
+    console.log("The original position is: ");
+    console.log(originalPos);
+  }, [newIndex, oldIndex]);
 
   const STARTING_X = 100;
   const STARTING_Y = 100;
@@ -66,22 +62,22 @@ export function Drag({ reset, editMode, children }: DragProps) {
   function selectQuadrant(quad: Quads, index: number) {
     switch (quad) {
       case Quads.quadOne:
-        console.log("Index 0")
+        setNewIndex(0);
         return handleSetPositions(index, STARTING_X, STARTING_Y);
       case Quads.quadTwo:
-        console.log("Index 1")
+        setNewIndex(1);
         return handleSetPositions(index, STARTING_X + 320, STARTING_Y);
       case Quads.quadThree:
-        console.log("Index 2")
+        setNewIndex(2);
         return handleSetPositions(index, STARTING_X + 640, STARTING_Y);
       case Quads.quadFour:
-        console.log("Index 3")
+        setNewIndex(3);
         return handleSetPositions(index, STARTING_X, STARTING_Y + 220);
       case Quads.quadFive:
-        console.log("Index 4")
+        setNewIndex(4);
         return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220);
       case Quads.quadSix:
-        console.log("Index 5")
+        setNewIndex(5);
         return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
     }
   }
@@ -132,7 +128,8 @@ export function Drag({ reset, editMode, children }: DragProps) {
     // Need to set the ref to true here when the user clicks the element
     draggingIndex.current = editMode ? index : null;
 
-    setNewIndex(index)
+    setOldIndex(index);
+    setOriginalPos(positions[index]);
 
     // Setting up the offset between your mouse and the top-left corner of the element
     // getBoundingClientRect() is a built-in JavaScript method that gives you the position and size of a DOM element relative to the viewport.
@@ -168,12 +165,11 @@ export function Drag({ reset, editMode, children }: DragProps) {
 
     const pos = positionsRef.current[index];
 
-    setOldIndex(newIndex)
-    setOriginalPos(positions[newIndex])
-
-
     // New location
     getScreenSector(pos, index);
+
+    // old location
+    getScreenSector(originalPos, oldIndex);
 
     // Unselect shape, otherwise you can't let go
     draggingIndex.current = null;
