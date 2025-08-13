@@ -8,135 +8,66 @@ type DragProps = {
   children: React.ReactNode;
 };
 
-type Position = {
-  x: number;
-  y: number;
-};
-
-enum Quads {
-  quadOne,
-  quadTwo,
-  quadThree,
-  quadFour,
-  quadFive,
-  quadSix,
-}
+type Position = { x: number; y: number };
 
 const STARTING_X = 100;
 const STARTING_Y = 100;
 
-const STARTING_POSITIONS = [
-  { x: STARTING_X, y: STARTING_Y }, // 0
-  { x: STARTING_X + 320, y: STARTING_Y }, // 1
-  { x: STARTING_X + 640, y: STARTING_Y }, // 2
-  { x: STARTING_X, y: STARTING_Y + 220 }, // 3
-  { x: STARTING_X + 320, y: STARTING_Y + 220 }, // 4
-  { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
+const STARTING_POSITIONS: Position[] = [
+  { x: STARTING_X, y: STARTING_Y }, // slot 0
+  { x: STARTING_X + 320, y: STARTING_Y }, // slot 1
+  { x: STARTING_X + 640, y: STARTING_Y }, // slot 2
+  { x: STARTING_X, y: STARTING_Y + 220 }, // slot 3
+  { x: STARTING_X + 320, y: STARTING_Y + 220 }, // slot 4
+  { x: STARTING_X + 640, y: STARTING_Y + 220 }, // slot 5
 ];
 
-const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
-const X_BOUNDARY_TWO = STARTING_X + 480; // halfway col 2 and 3
-const Y_BOUNDARY_ONE = STARTING_Y + 110; // halfway row 1 & 2 (50 + 220/2)
+const X_BOUNDARY_ONE = STARTING_X + 160;
+const X_BOUNDARY_TWO = STARTING_X + 480;
+const Y_BOUNDARY_ONE = STARTING_Y + 110;
 
 export function Drag({ reset, editMode, children }: DragProps) {
-  const [selectedPosition, setSelectedPosition] = useState({ x: 0.0, y: 0.0 });
-  const draggingIndex = useRef<number | null>(null);
-  const [positions, setPositions] = useState<{ [key: number]: Position }>({});
-  const [newIndex, setNewIndex] = useState<number>(0);
-  const [oldIndex, setOldIndex] = useState<number | null>(null);
-  const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
-
-  useEffect(() => {
-    console.log("");
-    console.log("");
-    console.log("The new index: " + newIndex);
-    console.log("The old index: " + oldIndex);
-    console.log("The original position is: ");
-    console.log(originalPos);
-  }, [newIndex, oldIndex]);
-
-  const handleSetPositions = (index: number, x: number, y: number) => {
-    setPositions((prev) => ({
-      ...prev,
-      [index]: { x, y },
-    }));
-  };
-
-  function selectQuadrant(quad: Quads, index: number) {
-    switch (quad) {
-      case Quads.quadOne:
-        setNewIndex(0);
-        return handleSetPositions(index, STARTING_X, STARTING_Y);
-      case Quads.quadTwo:
-        setNewIndex(1);
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y);
-      case Quads.quadThree:
-        setNewIndex(2);
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y);
-      case Quads.quadFour:
-        setNewIndex(3);
-        return handleSetPositions(index, STARTING_X, STARTING_Y + 220);
-      case Quads.quadFive:
-        setNewIndex(4);
-        return handleSetPositions(index, STARTING_X + 320, STARTING_Y + 220);
-      case Quads.quadSix:
-        setNewIndex(5);
-        return handleSetPositions(index, STARTING_X + 640, STARTING_Y + 220);
-    }
-  }
-
-  const getScreenSector = (pos: { x: number; y: number }, index: number) => {
-    if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadOne, index);
-    } else if (
-      pos.x >= X_BOUNDARY_ONE &&
-      pos.x < X_BOUNDARY_TWO &&
-      pos.y < Y_BOUNDARY_ONE
-    ) {
-      return selectQuadrant(Quads.quadTwo, index);
-    } else if (pos.x >= X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadThree, index);
-    } else if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadFour, index);
-    } else if (
-      pos.x >= X_BOUNDARY_ONE &&
-      pos.x < X_BOUNDARY_TWO &&
-      pos.y >= Y_BOUNDARY_ONE
-    ) {
-      return selectQuadrant(Quads.quadFive, index);
-    } else if (pos.x >= X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadSix, index);
-    }
-  };
-
-  // this is used for the snap to logic
+  const [positions, setPositions] = useState<{ [tileIndex: number]: Position }>({});
+  const [slots, setSlots] = useState<{ [tileIndex: number]: number }>({}); // maps tile → slot index
   const positionsRef = useRef(positions);
+  const slotsRef = useRef(slots);
+  const selectedOffset = useRef({ x: 0, y: 0 });
+  const draggingIndex = useRef<number | null>(null);
+
   useEffect(() => {
     positionsRef.current = positions;
-  }, [positions]);
+    slotsRef.current = slots;
+  }, [positions, slots]);
 
+  // Reset positions & slot mapping
   useEffect(() => {
-    const initialPositions: { [key: number]: { x: number; y: number } } = {};
+    const initialPositions: { [key: number]: Position } = {};
+    const initialSlots: { [key: number]: number } = {};
     STARTING_POSITIONS.forEach((pos, i) => {
-      initialPositions[i] = { x: pos.x, y: pos.y };
+      initialPositions[i] = { ...pos };
+      initialSlots[i] = i;
     });
     setPositions(initialPositions);
+    setSlots(initialSlots);
   }, [reset]);
 
+  const getSectorIndexFromPos = (pos: Position) => {
+    if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) return 0;
+    if (pos.x >= X_BOUNDARY_ONE && pos.x < X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) return 1;
+    if (pos.x >= X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) return 2;
+    if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_ONE) return 3;
+    if (pos.x >= X_BOUNDARY_ONE && pos.x < X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) return 4;
+    if (pos.x >= X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) return 5;
+    return 0;
+  };
+
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
-    // Need to set the ref to true here when the user clicks the element
-    draggingIndex.current = editMode ? index : null;
+    if (!editMode) return;
+    draggingIndex.current = index;
 
-    setOldIndex(index);
-    setOriginalPos(positions[index]);
-
-    // Setting up the offset between your mouse and the top-left corner of the element
-    // getBoundingClientRect() is a built-in JavaScript method that gives you the position and size of a DOM element relative to the viewport.
     const rect = e.currentTarget.getBoundingClientRect();
-    setSelectedPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    selectedOffset.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
 
-    // Adds a listener to the entire window for when the user pushes mouseDown and mouseUp
-    // I tried tying the mouse up and down to the element but ran into issues.
     window.addEventListener("mousemove", handleMouseMove as any);
     window.addEventListener("mouseup", handleOnMouseUp);
   };
@@ -145,53 +76,64 @@ export function Drag({ reset, editMode, children }: DragProps) {
     const index = draggingIndex.current;
     if (index === null) return;
 
-    // Track position of box on screen
-    let newPosX = e.clientX - selectedPosition.x;
-    let newPosY = e.clientY - selectedPosition.y;
+    let newPosX = e.clientX - selectedOffset.current.x;
+    let newPosY = e.clientY - selectedOffset.current.y;
 
     setPositions((prev) => ({
       ...prev,
-      [index]: {
-        x: newPosX,
-        y: newPosY,
-      },
+      [index]: { x: newPosX, y: newPosY },
     }));
   };
 
   const handleOnMouseUp = () => {
-    const index = draggingIndex.current;
-    if (index === null) return;
+    const draggedTile = draggingIndex.current;
+    if (draggedTile === null) return;
 
-    const pos = positionsRef.current[index];
+    const draggedPos = positionsRef.current[draggedTile];
+    const targetSlot = getSectorIndexFromPos(draggedPos);
 
-    // New location
-    getScreenSector(pos, index);
+    setPositions((prev) => {
+      const updated = { ...prev };
+      const updatedSlots = { ...slotsRef.current };
 
-    // old location
-    getScreenSector(originalPos, oldIndex);
+      // Tile currently occupying the target slot
+      const occupyingTile = Object.keys(updatedSlots).find(
+        (tile) => updatedSlots[Number(tile)] === targetSlot
+      );
 
-    // Unselect shape, otherwise you can't let go
+      // Move dragged tile into target slot
+      updated[draggedTile] = { ...STARTING_POSITIONS[targetSlot] };
+      updatedSlots[draggedTile] = targetSlot;
+
+      // If there’s a tile there, move it to the dragged tile's old slot
+      if (occupyingTile !== undefined) {
+        const oldSlot = slotsRef.current[draggedTile];
+        updated[Number(occupyingTile)] = { ...STARTING_POSITIONS[oldSlot] };
+        updatedSlots[Number(occupyingTile)] = oldSlot;
+      }
+
+      setSlots(updatedSlots);
+      return updated;
+    });
+
     draggingIndex.current = null;
-    // Remove listeners now that element is not clicked
     window.removeEventListener("mousemove", handleMouseMove as any);
     window.removeEventListener("mouseup", handleOnMouseUp);
   };
 
   return (
     <div>
-      {React.Children.map(children, (child, index) => {
-        return (
-          <DraggableComponent
-            key={index}
-            position={positions[index] || { x: 200, y: 200 }}
-            index={index}
-            onMouseDown={handleOnMouseDown}
-            editMode={editMode}
-          >
-            {child}
-          </DraggableComponent>
-        );
-      })}
+      {React.Children.map(children, (child, index) => (
+        <DraggableComponent
+          key={index}
+          position={positions[index] || { x: 200, y: 200 }}
+          index={index}
+          onMouseDown={handleOnMouseDown}
+          editMode={editMode}
+        >
+          {child}
+        </DraggableComponent>
+      ))}
     </div>
   );
 }
