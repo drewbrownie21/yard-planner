@@ -61,40 +61,36 @@ export function Drag({ reset, editMode, children }: DragProps) {
   /*
   Sets the position of the state
   */
-  const handleSetPositions = (index: number, x: number, y: number) => {
+  const handleSetPositions = (quad: Quads, index: number) => {
+    setNewIndex(index);
+    const { x, y } = sectors[quad];
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
-  };
-
-  function selectQuadrant(quad: Quads, index: number) {
-    setNewIndex(index);
-    const { x, y } = sectors[quad];
-    return handleSetPositions(index, x, y);
   }
 
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadOne, index);
+      return handleSetPositions(Quads.quadOne, index);
     } else if (
       pos.x >= X_BOUNDARY_ONE &&
       pos.x < X_BOUNDARY_TWO &&
       pos.y < Y_BOUNDARY_ONE
     ) {
-      return selectQuadrant(Quads.quadTwo, index);
+      return handleSetPositions(Quads.quadTwo, index);
     } else if (pos.x >= X_BOUNDARY_TWO && pos.y < Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadThree, index);
+      return handleSetPositions(Quads.quadThree, index);
     } else if (pos.x < X_BOUNDARY_ONE && pos.y >= Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadFour, index);
+      return handleSetPositions(Quads.quadFour, index);
     } else if (
       pos.x >= X_BOUNDARY_ONE &&
       pos.x < X_BOUNDARY_TWO &&
       pos.y >= Y_BOUNDARY_ONE
     ) {
-      return selectQuadrant(Quads.quadFive, index);
+      return handleSetPositions(Quads.quadFive, index);
     } else if (pos.x >= X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) {
-      return selectQuadrant(Quads.quadSix, index);
+      return handleSetPositions(Quads.quadSix, index);
     }
   };
 
