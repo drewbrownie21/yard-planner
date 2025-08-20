@@ -57,6 +57,7 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const [newIndex, setNewIndex] = useState<number>(0);
   const [oldIndex, setOldIndex] = useState<number | null>(null);
   const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
+  const oldIndexRef = useRef<number | null>(null)
 
   /*
   Sets the position of the state
@@ -108,9 +109,22 @@ export function Drag({ reset, editMode, children }: DragProps) {
     setPositions(initialPositions);
   }, [reset]);
 
+  function findPositionArrayIndex(target: Position): number {
+    console.log("Target:", target);
+    console.log("Positions Array:", positions);
+    console.log("Starting Positions:", STARTING_POSITIONS);
+  
+    return STARTING_POSITIONS.findIndex(
+      (pos) => pos.x === target.x && pos.y === target.y
+    );
+  }
+
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
     // Need to set the ref to true here when the user clicks the element
     draggingIndex.current = editMode ? index : null;
+    oldIndexRef.current = index
+    console.log("Index is: " + findPositionArrayIndex(positions[index]))
+
 
     setOldIndex(index);
     setOriginalPos(positions[index]);
