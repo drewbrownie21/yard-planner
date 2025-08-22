@@ -57,19 +57,23 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const [newIndex, setNewIndex] = useState<number>(0);
   const [oldIndex, setOldIndex] = useState<number | null>(null);
   const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
-  const oldIndexRef = useRef<number | null>(null)
+  const oldIndexRef = useRef<number | null>(null);
 
   /*
   Sets the position of the state
   */
   const handleSetPositions = (quad: Quads, index: number) => {
-    setNewIndex(index);
     const { x, y } = sectors[quad];
+
+    // Find which slot this x,y belongs to
+    const slotIndex = findPositionArrayIndex({ x, y });
+
+    setNewIndex(slotIndex); // ✅ store slot index instead
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
-  }
+  };
 
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
@@ -110,23 +114,26 @@ export function Drag({ reset, editMode, children }: DragProps) {
   }, [reset]);
 
   function findPositionArrayIndex(target: Position): number {
-    console.log("Target:", target);
-    console.log("Positions Array:", positions);
-    console.log("Starting Positions:", STARTING_POSITIONS);
-  
     return STARTING_POSITIONS.findIndex(
-      (pos) => pos.x === target.x && pos.y === target.y
+      (pos) => pos.x === target.x && pos.y === target.y,
     );
   }
+
+  useEffect(() => {
+    console.log("The old index is: " + oldIndex);
+  }, [oldIndex]);
+
+  useEffect(() => {
+    console.log("The new index is: " + newIndex);
+  }, [newIndex, setNewIndex]);
 
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
     // Need to set the ref to true here when the user clicks the element
     draggingIndex.current = editMode ? index : null;
-    oldIndexRef.current = index
-    console.log("Index is: " + findPositionArrayIndex(positions[index]))
+    oldIndexRef.current = index;
+    const currentIndex = findPositionArrayIndex(positions[index]);
 
-
-    setOldIndex(index);
+    setOldIndex(currentIndex);
     setOriginalPos(positions[index]);
 
     // Setting up the offset between your mouse and the top-left corner of the element
@@ -165,13 +172,39 @@ export function Drag({ reset, editMode, children }: DragProps) {
   */
 
   const swapTiles = (newIndex: number, oldIndex: number) => {
-    /*
-swapTiles = Tile B then does to where tile A was & tile A stays where tile B was
-    1. Remeber where tile A was
-    2. Remeber where tile B was
-    3. Replace tile A info with tile B info
-    4. Replace tile B info with tile A info
-  */
+    if (newIndex === oldIndex) return;
+
+    setPositions((prev) => {
+      const updated = { ...prev };
+
+      //1. Where tile A was
+      const posA = STARTING_POSITIONS[oldIndex];
+      console.log(posA);
+      // //2. Where tile B was
+      // const posB = STARTING_POSITIONS[newIndex]
+      // // 3. Replace tile A info with tile B info
+      // const tileAKey = Object.keys(updated).find(
+      //     (key) =>
+      //     updated[Number(key)].x === posA.x &&
+      //     updated[Number(key)].y === posA.y
+      // )
+
+      // if (tileAKey !== undefined) {
+      //     updated[Number(tileAKey)] = { ...posB };
+      //   }
+      // // 4. Replace tile B info with tile A info
+      // const tileBKey = Object.keys(updated).find(
+      //     (key) =>
+      //       updated[Number(key)].x === posB.x &&
+      //       updated[Number(key)].y === posB.y
+      //   );
+
+      //   if (tileBKey !== undefined) {
+      //     updated[Number(tileBKey)] = { ...posA };
+      //   }
+
+      return updated;
+    });
   };
 
   const handleOnMouseUp = () => {
@@ -182,6 +215,8 @@ swapTiles = Tile B then does to where tile A was & tile A stays where tile B was
 
     // New location
     getScreenSector(pos, index);
+    console.log("BREAK");
+    swapTiles(newIndex, oldIndex);
 
     // Unselect shape, otherwise you can't let go
     draggingIndex.current = null;
