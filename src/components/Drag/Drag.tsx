@@ -62,21 +62,21 @@ export function Drag({ reset, editMode, children }: DragProps) {
   /*
   Returns the slot index
   */
-const handleSetPositions = (quad: Quads, index: number) => {
+  const handleSetPositions = (quad: Quads, index: number) => {
     const { x, y } = sectors[quad];
-  
+
     // Find which slot this x,y belongs to
     const slotIndex = findPositionArrayIndex({ x, y });
-  
+
     setNewIndex(slotIndex); // still useful
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
-  
+
     return slotIndex; // <-- return it
   };
-  
+
   // Find what area of the screen we are in based off cords
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
@@ -129,7 +129,7 @@ const handleSetPositions = (quad: Quads, index: number) => {
     // compute the current slot index of this element and store that as "old"
     const currentIndex = findPositionArrayIndex(positions[index]);
     oldIndexRef.current = currentIndex; // <-- store slot index (was index before)
-  
+
     setOldIndex(currentIndex);
     setOriginalPos(positions[index]);
 
@@ -161,45 +161,39 @@ const handleSetPositions = (quad: Quads, index: number) => {
     }));
   };
 
-  /*
-  1. onMouseDown = Grab tile A
-  2. moveTile = Move tile A to overlap tile B
-  3. dropTile = Drop tile A on tile B
-  4. swapTiles = Tile B then does to where tile A was & tile A stays where tile B was
-  */
-
   const swapTiles = (newIndex: number, oldIndex: number) => {
     if (newIndex === oldIndex) return;
 
     setPositions((prev) => {
       const updated = { ...prev };
-      console.log("New Index: " + newIndex)
-      console.log("Old Index: " + oldIndex)
+      console.log("New Index: " + newIndex);
+      console.log("Old Index: " + oldIndex);
 
-      //1. Where tile A was
+      // 1. Where tile A was
       const posA = STARTING_POSITIONS[oldIndex];
-      //2. Where tile B was
-      const posB = STARTING_POSITIONS[newIndex]
-    //   3. Replace tile A info with tile B info
+      // 2. Where tile B was
+      const posB = STARTING_POSITIONS[newIndex];
+      // 3. Replace  tile A info with tile B info
       const tileAKey = Object.keys(updated).find(
-          (key) =>
+        (key) =>
           updated[Number(key)].x === posA.x &&
-          updated[Number(key)].y === posA.y
-      )
+          updated[Number(key)].y === posA.y,
+      );
 
       if (tileAKey !== undefined) {
-          updated[Number(tileAKey)] = { ...posB };
-        }
+        updated[Number(tileAKey)] = { ...posB };
+      }
+
       // 4. Replace tile B info with tile A info
       const tileBKey = Object.keys(updated).find(
-          (key) =>
-            updated[Number(key)].x === posB.x &&
-            updated[Number(key)].y === posB.y
-        );
+        (key) =>
+          updated[Number(key)].x === posB.x &&
+          updated[Number(key)].y === posB.y,
+      );
 
-        if (tileBKey !== undefined) {
-          updated[Number(tileBKey)] = { ...posA };
-        }
+      if (tileBKey !== undefined) {
+        updated[Number(tileBKey)] = { ...posA };
+      }
 
       return updated;
     });
@@ -208,15 +202,15 @@ const handleSetPositions = (quad: Quads, index: number) => {
   const handleOnMouseUp = () => {
     const index = draggingIndex.current;
     if (index === null) return;
-  
+
     const pos = positionsRef.current[index];
-  
+
     // getScreenSector now RETURNS a slot index
     const slotIndex = getScreenSector(pos, index);
     const oldSlot = oldIndexRef.current;
-  
+
     if (oldSlot !== null && slotIndex !== undefined) {
-        swapTiles(slotIndex, oldSlot);
+      swapTiles(slotIndex, oldSlot);
     }
 
     // Unselect shape
