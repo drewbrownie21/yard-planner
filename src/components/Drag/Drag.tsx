@@ -60,21 +60,24 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const oldIndexRef = useRef<number | null>(null);
 
   /*
-  Sets the position of the state
+  Returns the slot index
   */
-  const handleSetPositions = (quad: Quads, index: number) => {
+const handleSetPositions = (quad: Quads, index: number) => {
     const { x, y } = sectors[quad];
-
+  
     // Find which slot this x,y belongs to
     const slotIndex = findPositionArrayIndex({ x, y });
-
-    setNewIndex(slotIndex); // ✅ store slot index instead
+  
+    setNewIndex(slotIndex); // still useful
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
+  
+    return slotIndex; // <-- return it
   };
-
+  
+  // Find what area of the screen we are in based off cords
   const getScreenSector = (pos: { x: number; y: number }, index: number) => {
     if (pos.x < X_BOUNDARY_ONE && pos.y < Y_BOUNDARY_ONE) {
       return handleSetPositions(Quads.quadOne, index);
@@ -97,6 +100,7 @@ export function Drag({ reset, editMode, children }: DragProps) {
     } else if (pos.x >= X_BOUNDARY_TWO && pos.y >= Y_BOUNDARY_ONE) {
       return handleSetPositions(Quads.quadSix, index);
     }
+    return undefined;
   };
 
   // this is used for the snap to logic
@@ -119,20 +123,13 @@ export function Drag({ reset, editMode, children }: DragProps) {
     );
   }
 
-  useEffect(() => {
-    console.log("The old index is: " + oldIndex);
-  }, [oldIndex]);
-
-  useEffect(() => {
-    console.log("The new index is: " + newIndex);
-  }, [newIndex, setNewIndex]);
-
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
-    // Need to set the ref to true here when the user clicks the element
     draggingIndex.current = editMode ? index : null;
-    oldIndexRef.current = index;
-    const currentIndex = findPositionArrayIndex(positions[index]);
 
+    // compute the current slot index of this element and store that as "old"
+    const currentIndex = findPositionArrayIndex(positions[index]);
+    oldIndexRef.current = currentIndex; // <-- store slot index (was index before)
+  
     setOldIndex(currentIndex);
     setOriginalPos(positions[index]);
 
@@ -176,18 +173,19 @@ export function Drag({ reset, editMode, children }: DragProps) {
 
     setPositions((prev) => {
       const updated = { ...prev };
+      console.log("New Index: " + newIndex)
+      console.log("Old Index: " + oldIndex)
 
       //1. Where tile A was
       const posA = STARTING_POSITIONS[oldIndex];
-      console.log(posA);
-      // //2. Where tile B was
-      // const posB = STARTING_POSITIONS[newIndex]
-      // // 3. Replace tile A info with tile B info
-      // const tileAKey = Object.keys(updated).find(
-      //     (key) =>
-      //     updated[Number(key)].x === posA.x &&
-      //     updated[Number(key)].y === posA.y
-      // )
+      //2. Where tile B was
+      const posB = STARTING_POSITIONS[newIndex]
+      // 3. Replace tile A info with tile B info
+    //   const tileAKey = Object.keys(updated).find(
+    //       (key) =>
+        //   updated[Number(key)].x === posA.x &&
+        //   updated[Number(key)].y === posA.y
+    //   )
 
       // if (tileAKey !== undefined) {
       //     updated[Number(tileAKey)] = { ...posB };
@@ -210,15 +208,18 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const handleOnMouseUp = () => {
     const index = draggingIndex.current;
     if (index === null) return;
-
+  
     const pos = positionsRef.current[index];
+  
+    // getScreenSector now RETURNS a slot index
+    const slotIndex = getScreenSector(pos, index);
+    const oldSlot = oldIndexRef.current;
+  
+    if (oldSlot !== null && slotIndex !== undefined) {
+        swapTiles(slotIndex, oldSlot);
+    }
 
-    // New location
-    getScreenSector(pos, index);
-    console.log("BREAK");
-    swapTiles(newIndex, oldIndex);
-
-    // Unselect shape, otherwise you can't let go
+    // Unselect shape
     draggingIndex.current = null;
     // Remove listeners now that element is not clicked
     window.removeEventListener("mousemove", handleMouseMove as any);
