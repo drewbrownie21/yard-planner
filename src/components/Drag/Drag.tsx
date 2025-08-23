@@ -54,9 +54,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const [selectedPosition, setSelectedPosition] = useState({ x: 0.0, y: 0.0 });
   const draggingIndex = useRef<number | null>(null);
   const [positions, setPositions] = useState<{ [key: number]: Position }>({});
-  const [newIndex, setNewIndex] = useState<number>(0);
-  const [oldIndex, setOldIndex] = useState<number | null>(null);
-  const [originalPos, setOriginalPos] = useState<Position>({ x: 0.0, y: 0.0 });
   const oldIndexRef = useRef<number | null>(null);
 
   /*
@@ -68,13 +65,12 @@ export function Drag({ reset, editMode, children }: DragProps) {
     // Find which slot this x,y belongs to
     const slotIndex = findPositionArrayIndex({ x, y });
 
-    setNewIndex(slotIndex); // still useful
     setPositions((prev) => ({
       ...prev,
       [index]: { x, y },
     }));
 
-    return slotIndex; // <-- return it
+    return slotIndex;
   };
 
   // Find what area of the screen we are in based off cords
@@ -130,9 +126,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
     const currentIndex = findPositionArrayIndex(positions[index]);
     oldIndexRef.current = currentIndex; // <-- store slot index (was index before)
 
-    setOldIndex(currentIndex);
-    setOriginalPos(positions[index]);
-
     // Setting up the offset between your mouse and the top-left corner of the element
     // getBoundingClientRect() is a built-in JavaScript method that gives you the position and size of a DOM element relative to the viewport.
     const rect = e.currentTarget.getBoundingClientRect();
@@ -166,8 +159,6 @@ export function Drag({ reset, editMode, children }: DragProps) {
 
     setPositions((prev) => {
       const updated = { ...prev };
-      console.log("New Index: " + newIndex);
-      console.log("Old Index: " + oldIndex);
 
       // 1. Where tile A was
       const posA = STARTING_POSITIONS[oldIndex];
