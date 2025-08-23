@@ -1,8 +1,0 @@
-.clickableIcon {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.clickableIcon:hover {
-  transform: scale(1.1);
-}
