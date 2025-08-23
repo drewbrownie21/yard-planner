@@ -180,26 +180,26 @@ const handleSetPositions = (quad: Quads, index: number) => {
       const posA = STARTING_POSITIONS[oldIndex];
       //2. Where tile B was
       const posB = STARTING_POSITIONS[newIndex]
-      // 3. Replace tile A info with tile B info
-    //   const tileAKey = Object.keys(updated).find(
-    //       (key) =>
-        //   updated[Number(key)].x === posA.x &&
-        //   updated[Number(key)].y === posA.y
-    //   )
+    //   3. Replace tile A info with tile B info
+      const tileAKey = Object.keys(updated).find(
+          (key) =>
+          updated[Number(key)].x === posA.x &&
+          updated[Number(key)].y === posA.y
+      )
 
-      // if (tileAKey !== undefined) {
-      //     updated[Number(tileAKey)] = { ...posB };
-      //   }
-      // // 4. Replace tile B info with tile A info
-      // const tileBKey = Object.keys(updated).find(
-      //     (key) =>
-      //       updated[Number(key)].x === posB.x &&
-      //       updated[Number(key)].y === posB.y
-      //   );
+      if (tileAKey !== undefined) {
+          updated[Number(tileAKey)] = { ...posB };
+        }
+      // 4. Replace tile B info with tile A info
+      const tileBKey = Object.keys(updated).find(
+          (key) =>
+            updated[Number(key)].x === posB.x &&
+            updated[Number(key)].y === posB.y
+        );
 
-      //   if (tileBKey !== undefined) {
-      //     updated[Number(tileBKey)] = { ...posA };
-      //   }
+        if (tileBKey !== undefined) {
+          updated[Number(tileBKey)] = { ...posA };
+        }
 
       return updated;
     });
