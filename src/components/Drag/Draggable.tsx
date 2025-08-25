@@ -12,7 +12,7 @@ export function DraggableComponent({
   onMouseDown,
   children,
   editMode,
-  isDragging
+  isDragging,
 }: DragableProps) {
   return (
     <div
@@ -22,7 +22,7 @@ export function DraggableComponent({
         left: `${position.x}px`,
         top: `${position.y}px`,
         cursor: editMode ? "grab" : "mousepointer",
-        zIndex: isDragging ? 9999 : 1
+        zIndex: isDragging ? 9999 : 1,
       }}
     >
       {children}

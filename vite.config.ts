@@ -4,6 +4,6 @@ export default defineConfig({
   base: "/yard-planner/",
   plugins: [react()],
   build: {
-    outDir: "dist"
-  }
+    outDir: "dist",
+  },
 });

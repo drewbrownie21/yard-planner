@@ -215,7 +215,7 @@ export function Drag({ reset, editMode, children }: DragProps) {
     <div>
       {React.Children.map(children, (child, index) => {
         const isDragging = draggingIndex.current === index;
-        
+
         return (
           <DraggableComponent
             key={index}
