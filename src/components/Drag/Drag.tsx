@@ -22,11 +22,13 @@ enum Quads {
   quadSix,
 }
 
+const GAP = 5;
+
 const STARTING_X = 100;
 const STARTING_Y = 100;
-const X_OFFSET_ONE = STARTING_X + 320;
-const X_OFFSET_TWO = STARTING_X + 640;
-const Y_OFFSET_ONE = STARTING_Y + 220;
+const X_OFFSET_ONE = STARTING_X + 320 + GAP;
+const X_OFFSET_TWO = STARTING_X + 640 + GAP * 2;
+const Y_OFFSET_ONE = STARTING_Y + 220 + GAP;
 
 const sectors = [
   { x: STARTING_X, y: STARTING_Y },
@@ -39,11 +41,11 @@ const sectors = [
 
 const STARTING_POSITIONS: Position[] = [
   { x: STARTING_X, y: STARTING_Y }, // 0
-  { x: STARTING_X + 320, y: STARTING_Y }, // 1
-  { x: STARTING_X + 640, y: STARTING_Y }, // 2
-  { x: STARTING_X, y: STARTING_Y + 220 }, // 3
-  { x: STARTING_X + 320, y: STARTING_Y + 220 }, // 4
-  { x: STARTING_X + 640, y: STARTING_Y + 220 }, // 5 ← missing
+  { x: X_OFFSET_ONE, y: STARTING_Y }, // 1
+  { x: X_OFFSET_TWO, y: STARTING_Y }, // 2
+  { x: STARTING_X, y: Y_OFFSET_ONE }, // 3
+  { x: X_OFFSET_ONE, y: Y_OFFSET_ONE }, // 4
+  { x: X_OFFSET_TWO, y: Y_OFFSET_ONE }, // 5 ← missing
 ];
 
 const X_BOUNDARY_ONE = STARTING_X + 160; // halfway col 1 and 2
