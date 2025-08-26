@@ -1,0 +1,26 @@
+.footer {
+  color: #a0a0a0;
+  text-align: left;
+  padding: 1rem 2rem;
+  font-size: 0.9rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.links {
+  margin-top: 0.5rem;
+}
+
+.links a {
+  color: #999;
+  margin: 0 0.75rem 0 0;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  font-weight: 500;
+}
+
+.links a:hover {
+  color: #606060;
+  transform: translateY(-1px);
+}

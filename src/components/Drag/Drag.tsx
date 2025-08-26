@@ -122,9 +122,9 @@ export function Drag({ reset, editMode, children }: DragProps) {
   const handleOnMouseDown = (e: React.MouseEvent, index: number) => {
     draggingIndex.current = editMode ? index : null;
 
-    // compute the current slot index of this element and store that as "old"
+    // find the current slot index of this element and store that as "old"
     const currentIndex = findPositionArrayIndex(positions[index]);
-    oldIndexRef.current = currentIndex; // <-- store slot index (was index before)
+    oldIndexRef.current = currentIndex;
 
     // Setting up the offset between your mouse and the top-left corner of the element
     // getBoundingClientRect() is a built-in JavaScript method that gives you the position and size of a DOM element relative to the viewport.

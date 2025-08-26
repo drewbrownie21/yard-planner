@@ -9,6 +9,7 @@ import { Seeds } from "./components/Seeds/Seeds";
 import { DarkModeProvider } from "./context/ThemeContext";
 import { Drag } from "./components/Drag/Drag";
 import { Weeds } from "./components/Weeds/Weeds";
+import { Footer } from "./components/Footer/Footer";
 
 export type FormData = {
   zone: string;
@@ -48,27 +49,30 @@ function App() {
   return (
     <main>
       <DarkModeProvider>
-        <Header handleReset={handleReset} handleEditMode={handleEditMode} />
-        <section className={styles.main}>
-          <Drag reset={reset} editMode={editMode}>
-            <Haridness
-              updateUserProfile={updateUserProfile}
-              userProfile={userProfile}
-            />
-            <Grass
-              updateUserProfile={updateUserProfile}
-              userProfile={userProfile}
-            />
-            <Care
-              grassType={
-                userProfile.zone.length > 0 ? userProfile.grassType : ""
-              }
-            />
-            <Produce zone={userProfile.zone} />
-            <Seeds />
-            <Weeds />
-          </Drag>
-        </section>
+        <main className={styles.app}>
+          <Header handleReset={handleReset} handleEditMode={handleEditMode} />
+          <section className={styles.main}>
+            <Drag reset={reset} editMode={editMode}>
+              <Haridness
+                updateUserProfile={updateUserProfile}
+                userProfile={userProfile}
+              />
+              <Grass
+                updateUserProfile={updateUserProfile}
+                userProfile={userProfile}
+              />
+              <Care
+                grassType={
+                  userProfile.zone.length > 0 ? userProfile.grassType : ""
+                }
+              />
+              <Produce zone={userProfile.zone} />
+              <Seeds />
+              <Weeds />
+            </Drag>
+          </section>
+          <Footer />
+        </main>
       </DarkModeProvider>
     </main>
   );
