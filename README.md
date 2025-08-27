@@ -2,6 +2,9 @@
 
 Yard Planner is a gardening and lawn management tool that provides zone-based recommendations, seed details, and weed control information.
 
+## Live Demo
+[Yard Planner](https://drewbrownie21.github.io/yard-planner/)
+
 ---
 
 ## Features
