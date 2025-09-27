@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Tile from "../Tile/Tile";
 import { Button } from "../Button/Button";
 import styles from "../../components/Button/Button.module.css";
@@ -14,13 +14,13 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
   const [zipcode, setZipcode] = useState("");
   const [displayZipCode, setDisplayZipCode] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = useCallback((e: any) => {
     e.preventDefault();
     setZipcode("");
     setDisplayZipCode(zipcode);
-    updateUserProfile("zipcode", displayZipCode);
+    updateUserProfile("zipcode", zipcode);
     updateUserProfile("zone", grabZone(zipcode));
-  };
+  }, [updateUserProfile, zipcode]);
 
   const handleReset = (e: any) => {
     e.preventDefault();
