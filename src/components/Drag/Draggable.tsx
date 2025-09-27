@@ -31,5 +31,5 @@ export const DraggableComponent = React.memo(
         {children}
       </div>
     );
-  }
+  },
 );

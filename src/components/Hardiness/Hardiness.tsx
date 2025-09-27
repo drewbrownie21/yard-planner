@@ -14,21 +14,27 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
   const [zipcode, setZipcode] = useState("");
   const [displayZipCode, setDisplayZipCode] = useState("");
 
-  const handleSubmit = useCallback((e: any) => {
-    e.preventDefault();
-    setZipcode("");
-    setDisplayZipCode(zipcode);
-    updateUserProfile("zipcode", zipcode);
-    updateUserProfile("zone", grabZone(zipcode));
-  }, [zipcode]);
+  const handleSubmit = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      setZipcode("");
+      setDisplayZipCode(zipcode);
+      updateUserProfile("zipcode", zipcode);
+      updateUserProfile("zone", grabZone(zipcode));
+    },
+    [zipcode],
+  );
 
-  const handleReset = useCallback((e: any) => {
-    e.preventDefault();
-    setDisplayZipCode("");
-    setZipcode("");
-    updateUserProfile("zipcode", "");
-    updateUserProfile("zone", "");
-  },[zipcode]);
+  const handleReset = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      setDisplayZipCode("");
+      setZipcode("");
+      updateUserProfile("zipcode", "");
+      updateUserProfile("zone", "");
+    },
+    [zipcode],
+  );
 
   return (
     <section>
