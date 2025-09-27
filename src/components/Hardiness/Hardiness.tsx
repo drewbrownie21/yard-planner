@@ -20,15 +20,15 @@ export function Haridness({ updateUserProfile, userProfile }: HardinessType) {
     setDisplayZipCode(zipcode);
     updateUserProfile("zipcode", zipcode);
     updateUserProfile("zone", grabZone(zipcode));
-  }, [updateUserProfile, zipcode]);
+  }, [zipcode]);
 
-  const handleReset = (e: any) => {
+  const handleReset = useCallback((e: any) => {
     e.preventDefault();
     setDisplayZipCode("");
     setZipcode("");
     updateUserProfile("zipcode", "");
     updateUserProfile("zone", "");
-  };
+  },[zipcode]);
 
   return (
     <section>
